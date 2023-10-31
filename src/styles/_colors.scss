@@ -1,0 +1,27 @@
+:root {
+  --color-primary: #353535;
+  --color-white: #fff;
+  --color-error: #ff6565;
+  --color-caption: #adadad;
+  --color-info: #3d46fa;
+  --color-info-hover: rgb(146 169 247 / 43%);
+  --color-btn-bg-outline: rgb(67 51 255 / 0%);
+
+  // gradient
+  --gradient-primary: linear-gradient(90deg, #4333ff 0%, #07ffd2 92.98%);
+  --gradient-primary-hover: linear-gradient(90deg, #7e73ff 0%, #07ffd2 92.98%);
+  --gradient-outline-active: linear-gradient(90deg, #4333ff 0%, #07ffd2 92.98%);
+  --gradient-primary-disabled: linear-gradient(90deg, #b2abff 0%, #51ffe0 92.98%);
+  --gradient-outline: linear-gradient(90deg, #07ffd2 0%, #413bfd 92.98%);
+  --gradient-outline-hover: linear-gradient(90deg, #07ffd2 0%, #7e73ff 92.98%);
+  --gradient-ellipse: linear-gradient(180deg, #4333fe 0%, #07ffd2 92.98%);
+  --gradient-white: linear-gradient(#fff, #fff);
+
+  // shadow
+  --shadow-btn: 0px 4px 4px 0px rgb(0 0 0 / 25%);
+  --shadow-input: 0px 4px 6px 0px rgb(132 132 132 / 10%);
+  --shadow-card: 0px 4px 21px 0px rgb(0 0 0 / 10%);
+
+  // border
+  --border-primary: 1px solid #e3e3e3;
+}

@@ -6,6 +6,13 @@
   --color-info: #3d46fa;
   --color-info-hover: rgb(146 169 247 / 43%);
   --color-btn-bg-outline: rgb(67 51 255 / 0%);
+  --color-icon: #a78bfa;
+  --color-icon-hover: rgb(0 0 0 / 5%);
+
+  // layout
+  --color-header-bg: #fae8ff;
+  --color-sidebar-bg: #99f6e4;
+  --color-divider: #d3d3d3;
 
   // gradient
   --gradient-primary: linear-gradient(90deg, #4333ff 0%, #07ffd2 92.98%);
@@ -21,6 +28,8 @@
   --shadow-btn: 0px 4px 4px 0px rgb(0 0 0 / 25%);
   --shadow-input: 0px 4px 6px 0px rgb(132 132 132 / 10%);
   --shadow-card: 0px 4px 21px 0px rgb(0 0 0 / 10%);
+  --shadow: 0 1px 3px 0 rgb(0 0 0 / 10%), 0 1px 2px -1px rgb(0 0 0 / 10%);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -2px rgb(0 0 0 / 10%);
 
   // border
   --border-primary: 1px solid #e3e3e3;

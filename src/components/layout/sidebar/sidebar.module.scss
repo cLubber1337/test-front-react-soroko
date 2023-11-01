@@ -1,0 +1,24 @@
+.sidebar {
+  position: relative;
+  background-color: var(--color-sidebar-bg);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: end;
+
+  height: calc(100vh - 87px);
+  margin-top: 80px;
+}
+
+.item {
+  padding-right: 36px;
+  padding-left: 36px;
+}
+
+.activeItem {
+  padding-right: 30px;
+  border-right: #a855f7 6px solid;
+}

@@ -137,3 +137,8 @@ body {
   margin: 0 auto;
   padding: 0 1.25rem;
 }
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+}

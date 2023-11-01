@@ -15,13 +15,11 @@
   --color-divider: #d3d3d3;
 
   // gradient
-  --gradient-primary: linear-gradient(90deg, #4333ff 0%, #07ffd2 92.98%);
-  --gradient-primary-hover: linear-gradient(90deg, #7e73ff 0%, #07ffd2 92.98%);
-  --gradient-outline-active: linear-gradient(90deg, #4333ff 0%, #07ffd2 92.98%);
-  --gradient-primary-disabled: linear-gradient(90deg, #b2abff 0%, #51ffe0 92.98%);
-  --gradient-outline: linear-gradient(90deg, #07ffd2 0%, #413bfd 92.98%);
-  --gradient-outline-hover: linear-gradient(90deg, #07ffd2 0%, #7e73ff 92.98%);
-  --gradient-ellipse: linear-gradient(180deg, #4333fe 0%, #07ffd2 92.98%);
+  --gradient-primary: linear-gradient(90deg, #a855f7 0%, #6366f1 92.98%);
+  --gradient-primary-hover: linear-gradient(90deg, #c084fc 0%, #818cf8 92.98%);
+  --gradient-primary-disabled: linear-gradient(90deg, #c084fc 0%, #818cf8 92.98%);
+  --gradient-outline: linear-gradient(90deg, #6366f1 0%, #a855f7 92.98%);
+  --gradient-outline-hover: linear-gradient(90deg, #818cf8 0%, #c084fc 92.98%);
   --gradient-white: linear-gradient(#fff, #fff);
 
   // shadow

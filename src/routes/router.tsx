@@ -3,10 +3,11 @@ import { createBrowserRouter, RouteObject, RouterProvider } from 'react-router-d
 import { Layout } from '@/components/layout/layout.tsx'
 import { Header } from '@/components/layout/header/header.tsx'
 import { NotFoundPage } from '@/pages/not-found-page/not-found-page.tsx'
+import { ROUTES } from '@/routes/routes.ts'
 
 const routes: RouteObject[] = [
   {
-    path: '/',
+    path: ROUTES.HOME,
     element: <HomePage />,
   },
 ].map(route => ({
@@ -19,7 +20,7 @@ const router = createBrowserRouter([
     children: routes,
   },
   {
-    path: '*',
+    path: ROUTES.NOT_FOUND,
     element: (
       <>
         <Header />

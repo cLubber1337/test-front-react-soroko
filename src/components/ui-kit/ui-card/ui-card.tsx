@@ -1,6 +1,7 @@
-import s from './ui-card.module.scss'
 import clsx from 'clsx'
 import { ReactNode } from 'react'
+
+import s from './ui-card.module.scss'
 
 type UiCardProps = {
   className?: string

@@ -20,10 +20,14 @@
 }
 
 .actions {
-  cursor: pointer;
-  padding: 0.1rem 0.4rem;
+  padding: 0 4px;
   font-size: var(--text-2xl);
   color: var(--color-icon);
+  border-radius: 8px;
+
+  &:hover {
+    background-color: var(--color-icon-hover);
+  }
 }
 
 .content {

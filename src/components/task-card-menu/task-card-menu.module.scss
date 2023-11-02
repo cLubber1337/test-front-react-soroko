@@ -1,0 +1,16 @@
+.title {
+  padding-bottom: 0.625rem;
+  font-weight: var(--font-bold);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+}
+
+.item {
+  gap: 0.5rem;
+  justify-content: flex-start;
+  padding-left: 0;
+  font-size: var(--tesxt-sm);
+}

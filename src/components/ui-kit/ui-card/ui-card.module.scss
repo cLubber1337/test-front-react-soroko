@@ -1,0 +1,12 @@
+.card {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+
+  padding: 20px;
+
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: var(--shadow-card);
+}

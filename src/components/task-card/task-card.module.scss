@@ -1,0 +1,31 @@
+.card {
+  display: inline-flex;
+  background-color: var(--color-task-card);
+}
+
+.header {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  justify-content: space-between;
+
+  padding-bottom: 12px;
+
+  border-bottom: 1px solid var(--color-divider);
+}
+
+.createdAt {
+  font-size: var(--text-base);
+  font-weight: var(--font-bold);
+}
+
+.actions {
+  cursor: pointer;
+  padding: 0.2rem 0.5rem;
+  font-size: var(--text-2xl);
+  color: var(--color-icon);
+}
+
+.content {
+  padding: 1rem 0;
+}

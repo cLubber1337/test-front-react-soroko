@@ -12,7 +12,6 @@ export const Sidebar = () => {
     setActiveItem(status)
   }
 
-  console.log(activeItem)
   return (
     <nav className={s.sidebar}>
       <ul className={s.list}>

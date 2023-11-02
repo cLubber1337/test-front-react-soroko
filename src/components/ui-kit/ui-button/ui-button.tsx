@@ -8,7 +8,7 @@ export type UiButtonProps<T extends ElementType = 'button'> = {
   className?: string
 } & ComponentPropsWithoutRef<T>
 
-export const Button = <T extends ElementType = 'button'>(
+export const UiButton = <T extends ElementType = 'button'>(
   props: UiButtonProps<T> & Omit<ComponentPropsWithoutRef<T>, keyof UiButtonProps<T>>
 ) => {
   const { variant = 'contained', className, as: Component = 'button', ...rest } = props

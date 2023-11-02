@@ -1,0 +1,16 @@
+.checkbox {
+  user-select: none;
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.label {
+  padding-right: 6px;
+  opacity: 0.6;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+  color: var(--color-icon);
+}

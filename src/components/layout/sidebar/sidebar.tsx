@@ -1,5 +1,5 @@
 import s from './sidebar.module.scss'
-import { Button } from '@/components/ui-kit'
+import { UiButton } from '@/components/ui-kit'
 import { useState } from 'react'
 import { TaskStatus } from '@/libs/types.ts'
 import clsx from 'clsx'
@@ -21,7 +21,7 @@ export const Sidebar = () => {
             className={clsx(s.item, { [s.activeItem]: activeItem === status })}
             onClick={() => handleClickItem(status)}
           >
-            <Button variant={activeItem === status ? 'outlined' : 'contained'}>{status}</Button>
+            <UiButton variant={activeItem === status ? 'outlined' : 'contained'}>{status}</UiButton>
           </li>
         ))}
       </ul>

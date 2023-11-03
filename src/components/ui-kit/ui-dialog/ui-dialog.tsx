@@ -8,11 +8,13 @@ interface UiDialogProps {
   trigger: ReactNode
   content: ReactNode
   title?: string
+  isOpen: boolean
+  setIsOpen: (isOpen: boolean) => void
 }
 
-export const UiDialog = ({ trigger, content, title }: UiDialogProps) => {
+export const UiDialog = ({ trigger, content, title, isOpen, setIsOpen }: UiDialogProps) => {
   return (
-    <Dialog.Root>
+    <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger asChild>{trigger}</Dialog.Trigger>
 
       <Dialog.Portal>

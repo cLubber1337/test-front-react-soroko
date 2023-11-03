@@ -13,7 +13,7 @@ export const Layout = ({ children }: LayoutProps) => {
       <div className={'container'}>
         <div className={'grid-container'}>
           <Sidebar />
-          {children}
+          <div className={'gridItem'}>{children}</div>
         </div>
       </div>
     </div>

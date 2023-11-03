@@ -13,7 +13,7 @@ interface TaskCardProps {
   isDone?: boolean
   setIsDone?: (isDone: boolean) => void
   id?: string
-  createdAt?: string
+  createdAt?: number
 }
 
 export const TaskCard = ({
@@ -49,6 +49,8 @@ export const TaskCard = ({
           onCheckedChange={setIsDone}
           checked={isDone}
           label={'Complete the task'}
+          id={id}
+          name={'isDone'}
         />
       </div>
     </UiCard>

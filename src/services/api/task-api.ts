@@ -1,8 +1,11 @@
 import { instance } from './instance.ts'
-import { GetAllTasksResponse } from '@/services/api/types.ts'
+import { GetAllTasksResponse, Task } from '@/services/api/types.ts'
 
 export const taskApi = {
-  getTodoLists() {
+  getAllTasks() {
     return instance.get<GetAllTasksResponse>('task')
+  },
+  createTask(title: string) {
+    return instance.post<{ items: Task[] }>('task', [{ title, completed: false }])
   },
 }

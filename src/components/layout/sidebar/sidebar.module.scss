@@ -1,7 +1,13 @@
+@import 'src/styles/vars';
+
 .sidebar {
-  position: relative;
+  position: fixed;
   height: 100vh;
   background-color: var(--color-sidebar-bg);
+
+  @media (max-width: $breakpoint-tablet) {
+    display: none;
+  }
 }
 
 .list {

@@ -2,15 +2,32 @@
   user-select: none;
   display: flex;
   flex-direction: row-reverse;
+
+  button {
+    display: flex;
+    align-items: center;
+  }
 }
 
 .label {
+  display: flex;
+  align-items: center;
   padding-right: 6px;
   opacity: 0.6;
 }
 
 .icon {
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
+  padding: 6px;
+
   color: var(--color-icon);
+
+  border-radius: 100%;
+
+  transition: 250ms ease-in-out background-color;
+
+  &:hover {
+    background-color: var(--color-icon-hover);
+  }
 }

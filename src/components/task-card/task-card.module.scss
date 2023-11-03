@@ -1,5 +1,6 @@
 .card {
   display: inline-flex;
+  max-width: 320px;
   background-color: var(--color-task-card);
 }
 
@@ -25,8 +26,8 @@
 }
 
 .iconDone {
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
   margin-right: auto;
 
   font-size: var(--text-base);

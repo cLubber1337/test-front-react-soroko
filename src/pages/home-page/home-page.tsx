@@ -3,12 +3,18 @@ import { TaskCard } from '@/components/task-card/task-card.tsx'
 
 import s from './home-page.module.scss'
 import { taskApi } from '@/services/api/task-api.ts'
+import { Task } from '@/services/api/types.ts'
 
 export const HomePage = () => {
-  const [checked, setChecked] = useState(false)
+  const [data, setData] = useState<Task[]>([])
   async function getTasks() {
-    const response = await taskApi.getTodoLists()
-    console.log(response)
+    try {
+      const response = await taskApi.getAllTasks()
+      setData(response.data.items)
+      console.log(response.data.items)
+    } catch (error) {
+      console.log(error)
+    }
   }
   useEffect(() => {
     getTasks()
@@ -16,12 +22,21 @@ export const HomePage = () => {
 
   return (
     <main className={s.homePage}>
-      <TaskCard isDone={checked} setIsDone={setChecked} id={'123'} createdAt={'2022-12-12'}>
-        Nec cursus faucibus. Aenean sit mattis venenatis dictum. Dapibus nec orci, ipsum amet,
-        eleifend nec interdum lectus ornare et nunc mattis integer orci, cursus lectus platea ut.
-        Efficitur nisi sit tempus lorem ipsum imperdiet morbi nec dapibus justo amet et habitasse
-        aenean malesuada accumsan molesti
-      </TaskCard>
+      <div className={s.taskList}>
+        {data.map(task => (
+          <TaskCard
+            key={task._uuid}
+            isDone={task.completed}
+            setIsDone={(isDone: boolean) => {
+              console.log(isDone)
+            }}
+            id={task._uuid}
+            createdAt={task._created}
+          >
+            {task.title}
+          </TaskCard>
+        ))}
+      </div>
     </main>
   )
 }

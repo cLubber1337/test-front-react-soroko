@@ -21,7 +21,7 @@ export const UiCheckbox = forwardRef<HTMLButtonElement, UiCheckboxProps>(
             checked={checked}
             className={s.root}
             defaultChecked
-            id="c1"
+            id={rest.id}
             onCheckedChange={onCheckedChange}
             {...rest}
             disabled={disabled}
@@ -30,7 +30,7 @@ export const UiCheckbox = forwardRef<HTMLButtonElement, UiCheckboxProps>(
             {!checked && <FontAwesomeIcon icon={faSquare} className={s.icon} />}
           </Checkbox.Root>
 
-          <label className={s.label} htmlFor="c1">
+          <label className={s.label} htmlFor={rest.id}>
             {label}
           </label>
         </div>

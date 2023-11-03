@@ -3,6 +3,12 @@
   padding: 2rem;
 }
 
+.taskList {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1rem;
+}
+
 .actions {
   padding: 2px 4px;
   font-size: var(--text-2xl);

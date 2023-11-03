@@ -1,3 +1,12 @@
+@import 'vars';
+
+:root {
+  --header-height: 87px;
+  --z-overlay: 11;
+  --z-dialog: 12;
+  --z-header: 10;
+}
+
 html {
   box-sizing: border-box;
   font-size: 100%;
@@ -141,4 +150,16 @@ body {
 .grid-container {
   display: grid;
   grid-template-columns: 200px 1fr;
+
+  @media (max-width: $breakpoint-tablet) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.gridItem {
+  grid-column-start: 2;
+
+  @media (max-width: $breakpoint-tablet) {
+    grid-column-start: 1;
+  }
 }

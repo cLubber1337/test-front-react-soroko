@@ -1,5 +1,5 @@
 import s from './task-info-page.module.scss'
 
 export const TaskInfoPage = () => {
-  return <div className={s.TaskInfoPage}>TEST</div>
+  return <main className={s.taskInfoPage}>TEST</main>
 }

@@ -1,6 +1,6 @@
 .header {
   position: fixed;
-  z-index: 10;
+  z-index: var(--z-header);
   top: 0;
 
   width: 100%;
@@ -34,11 +34,4 @@
   top: 1px;
   padding-left: 42px;
   font-size: var(--text-3xl);
-}
-
-.addTaskBtn {
-  padding: 10px 15px;
-  font-size: var(--text-3xl);
-  color: var(--color-icon);
-  border-radius: 50%;
 }

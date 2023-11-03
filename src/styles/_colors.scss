@@ -7,8 +7,10 @@
   --color-info-hover: rgb(146 169 247 / 43%);
   --color-btn-bg-outline: rgb(67 51 255 / 0%);
   --color-icon: #a78bfa;
+  --color-success: #65a30d;
   --color-task-card: #fef3c7;
-  --color-icon-hover: rgb(0 0 0 / 5%);
+  --color-icon-hover: rgb(0 0 0 / 10%);
+  --color-overlay: rgb(0 0 0 / 60%);
 
   // layout
   --color-header-bg: #fae8ff;
@@ -32,4 +34,5 @@
 
   // border
   --border-primary: 1px solid #e3e3e3;
+  --border-focus: 1px solid #a78bfa;
 }

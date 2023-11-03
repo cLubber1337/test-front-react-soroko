@@ -1,0 +1,24 @@
+.addTaskBtn {
+  padding: 10px 15px;
+
+  font-size: var(--text-3xl);
+  color: var(--color-icon);
+
+  border-radius: 50%;
+
+  transition: 250ms ease-in-out background-color;
+
+  &:hover {
+    background-color: var(--color-icon-hover);
+  }
+}
+
+.textarea {
+  min-height: 100px;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+}

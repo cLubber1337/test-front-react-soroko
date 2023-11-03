@@ -1,7 +1,7 @@
 .content {
   will-change: transform, opacity;
 
-  padding: 20px;
+  padding: 30px 10px 10px;
 
   background-color: white;
   border-radius: 8px;
@@ -31,9 +31,20 @@
 
 .closeBtn {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 8px;
+  right: 8px;
+
+  padding: 2px 5px;
+
   color: (var(--color-icon));
+
+  border-radius: 100%;
+
+  transition: 200ms ease-in-out background-color;
+
+  &:hover {
+    background-color: var(--color-icon-hover);
+  }
 }
 
 @keyframes slide-up-and-fade {

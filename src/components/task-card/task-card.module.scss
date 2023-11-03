@@ -19,11 +19,33 @@
   font-weight: var(--font-bold);
 }
 
+.footer {
+  display: flex;
+  align-items: center;
+}
+
+.iconDone {
+  width: 20px;
+  height: 20px;
+  margin-right: auto;
+
+  font-size: var(--text-base);
+  color: var(--color-success);
+}
+
+.checkbox {
+  margin-left: auto;
+}
+
 .actions {
   padding: 0 4px;
+
   font-size: var(--text-2xl);
   color: var(--color-icon);
+
   border-radius: 8px;
+
+  transition: 200ms ease-in-out background-color;
 
   &:hover {
     background-color: var(--color-icon-hover);
@@ -32,4 +54,9 @@
 
 .content {
   padding: 1rem 0;
+}
+
+.contentDone {
+  text-decoration: line-through;
+  opacity: 0.4;
 }

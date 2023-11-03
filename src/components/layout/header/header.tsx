@@ -1,7 +1,7 @@
 import s from './header.module.scss'
-import { faListCheck, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faListCheck } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { UiButton } from '@/components/ui-kit'
+import { AddNewTask } from '@/components/add-new-task/add-new-task.tsx'
 
 export const Header = () => {
   return (
@@ -12,11 +12,7 @@ export const Header = () => {
             <FontAwesomeIcon className={s.logoIcon} icon={faListCheck} />{' '}
             <h1 className={s.logoTitle}>todo</h1>
           </div>
-          <div className={s.actions}>
-            <UiButton variant={'unstyled'} className={s.addTaskBtn}>
-              <FontAwesomeIcon icon={faPlus} />
-            </UiButton>
-          </div>
+          <AddNewTask />
         </div>
       </div>
     </header>

@@ -1,5 +1,6 @@
 .title {
-  padding-bottom: 0.625rem;
+  padding-bottom: 0.5rem;
+  padding-left: 1rem;
   font-weight: var(--font-bold);
 }
 
@@ -11,6 +12,5 @@
 .item {
   gap: 0.5rem;
   justify-content: flex-start;
-  padding-left: 0;
   font-size: var(--tesxt-sm);
 }

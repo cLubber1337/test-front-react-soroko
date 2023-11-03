@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 import { UiCard, UiCheckbox, UiPopover } from '@/components/ui-kit'
-import { faEllipsis } from '@fortawesome/free-solid-svg-icons'
+import { faCircle, faCircleCheck, faEllipsis } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { ReactNode } from 'react'
 
@@ -37,8 +37,20 @@ export const TaskCard = ({
           content={<TaskCardMenu id={id} />}
         />
       </div>
-      <div className={s.content}>{children}</div>
-      <UiCheckbox onCheckedChange={setIsDone} checked={isDone} label={'Complete the task'} />
+      <div className={clsx(s.content, isDone && s.contentDone)}>{children}</div>
+      <div className={s.footer}>
+        {isDone ? (
+          <FontAwesomeIcon icon={faCircleCheck} className={s.iconDone} />
+        ) : (
+          <FontAwesomeIcon icon={faCircle} style={{ color: 'white' }} className={s.iconDone} />
+        )}
+        <UiCheckbox
+          className={s.checkbox}
+          onCheckedChange={setIsDone}
+          checked={isDone}
+          label={'Complete the task'}
+        />
+      </div>
     </UiCard>
   )
 }

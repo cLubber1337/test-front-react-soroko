@@ -12,9 +12,9 @@ type UiCheckboxProps = {
 } & ButtonHTMLAttributes<HTMLButtonElement>
 
 export const UiCheckbox = forwardRef<HTMLButtonElement, UiCheckboxProps>(
-  ({ label, disabled, checked, onCheckedChange, ...rest }, ref) => {
+  ({ label, disabled, checked, onCheckedChange, className, ...rest }, ref) => {
     return (
-      <form>
+      <form className={className}>
         <div className={s.checkbox}>
           <Checkbox.Root
             ref={ref}

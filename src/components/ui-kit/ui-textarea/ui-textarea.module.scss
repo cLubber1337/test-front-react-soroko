@@ -1,0 +1,32 @@
+@import 'src/styles/vars';
+
+.textarea {
+  resize: none;
+
+  width: 100%;
+  padding: 0.94rem 1.56rem;
+
+  background: var(--color-white);
+  border: var(--border-primary);
+  border-radius: 10px;
+  outline: none;
+  box-shadow: var(--shadow-input);
+
+  &::placeholder {
+    font-style: italic;
+    color: var(--color-caption);
+  }
+
+  &:focus {
+    border: var(--border-focus);
+  }
+
+  @media (max-width: $breakpoint-tablet) {
+    padding: 0.94rem 1.25rem;
+    font-size: var(--text-base);
+  }
+
+  @media (max-width: $breakpoint-mobile) {
+    font-size: var(--tesxt-sm);
+  }
+}

@@ -5,6 +5,7 @@
   --z-overlay: 11;
   --z-dialog: 12;
   --z-header: 10;
+  --width-sidebar: 250px;
 }
 
 html {
@@ -149,7 +150,7 @@ body {
 
 .grid-container {
   display: grid;
-  grid-template-columns: 200px 1fr;
+  grid-template-columns: var(--width-sidebar) 1fr;
 
   @media (max-width: $breakpoint-tablet) {
     grid-template-columns: 1fr;

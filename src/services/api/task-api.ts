@@ -1,5 +1,5 @@
 import { instance } from './instance.ts'
-import { GetAllTasksResponse, Task } from '@/services/api/types.ts'
+import { GetAllTasksResponse, Task } from './types.ts'
 
 export const taskApi = {
   getAllTasks() {

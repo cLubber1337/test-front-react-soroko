@@ -1,11 +1,13 @@
 import clsx from 'clsx'
 import { UiCard, UiCheckbox, UiPopover } from '@/components/ui-kit'
-import { faCircle, faCircleCheck, faEllipsis } from '@fortawesome/free-solid-svg-icons'
+import { faCircle, faEllipsis } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { ReactNode } from 'react'
 
 import s from './task-card.module.scss'
 import { TaskCardMenu } from '../task-card-menu/task-card-menu.tsx'
+import { Priority } from '@/services/api/types.ts'
+import { priorityData } from '@/libs/data.ts'
 
 interface TaskCardProps {
   className?: string
@@ -14,6 +16,7 @@ interface TaskCardProps {
   setIsDone?: (isDone: boolean) => void
   id?: string
   createdAt?: number
+  priority: Priority
 }
 
 export const TaskCard = ({
@@ -23,7 +26,10 @@ export const TaskCard = ({
   children,
   createdAt,
   id,
+  priority,
 }: TaskCardProps) => {
+  const colorPriority = priorityData.find(data => data.priority === priority)?.color || 'white'
+
   return (
     <UiCard className={clsx(s.card, className)}>
       <div className={s.header}>
@@ -39,11 +45,8 @@ export const TaskCard = ({
       </div>
       <div className={clsx(s.content, isDone && s.contentDone)}>{children}</div>
       <div className={s.footer}>
-        {isDone ? (
-          <FontAwesomeIcon icon={faCircleCheck} className={s.iconDone} />
-        ) : (
-          <FontAwesomeIcon icon={faCircle} style={{ color: 'white' }} className={s.iconDone} />
-        )}
+        <FontAwesomeIcon icon={faCircle} style={{ color: colorPriority }} className={s.iconDone} />
+
         <UiCheckbox
           className={s.checkbox}
           onCheckedChange={setIsDone}

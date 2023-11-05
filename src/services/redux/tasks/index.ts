@@ -1,2 +1,7 @@
-export { selectAllTasks } from './task.selector.ts'
-export { tasksSlice, tasksThunks } from './tasks.slice.ts'
+export {
+  selectAllTasks,
+  selectTasksErrors,
+  selectTasksPriority,
+  selectTasksLoading,
+} from './tasks.selector.ts'
+export * from './tasks.slice.ts'

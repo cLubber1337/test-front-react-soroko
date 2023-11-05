@@ -54,7 +54,9 @@
 }
 
 .content {
+  flex: 1;
   padding: 1rem 0;
+  word-wrap: break-word;
 }
 
 .contentDone {

@@ -2,19 +2,29 @@ import { TaskCard } from '@/components/task-card/task-card.tsx'
 
 import s from './home-page.module.scss'
 import { useAppDispatch, useAppSelector } from '@/services/redux/hooks.ts'
-import { selectAllTasks, tasksThunks } from '@/services/redux/tasks'
+import {
+  selectAllTasks,
+  selectTasksErrors,
+  selectTasksLoading,
+  selectTasksPriority,
+  tasksThunks,
+} from '@/services/redux/tasks'
 import { useEffect } from 'react'
-import { selectTasksErrors, selectTasksLoading } from '@/services/redux/tasks/task.selector.ts'
 
 export const HomePage = () => {
   const dispatch = useAppDispatch()
   const tasks = useAppSelector(selectAllTasks)
   const errorMessage = useAppSelector(selectTasksErrors)
   const loading = useAppSelector(selectTasksLoading)
+  const activePriority = useAppSelector(selectTasksPriority)
 
   useEffect(() => {
-    dispatch(tasksThunks.fetchTasks())
+    dispatch(tasksThunks.fetchAllTasks())
   }, [dispatch])
+
+  const tasksByPriority = tasks.filter(task =>
+    activePriority === 'all' ? task : task._data_type === activePriority
+  )
 
   return (
     <main className={s.homePage}>
@@ -28,7 +38,7 @@ export const HomePage = () => {
         {loading ? (
           <div>Loading...</div>
         ) : (
-          tasks.map(task => (
+          tasksByPriority.map(task => (
             <TaskCard
               key={task._uuid}
               isDone={task.completed}
@@ -37,6 +47,7 @@ export const HomePage = () => {
               }}
               id={task._uuid}
               createdAt={task._created}
+              priority={task._data_type}
             >
               {task.title}
             </TaskCard>

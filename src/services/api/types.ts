@@ -5,7 +5,7 @@ export type GetAllTasksResponse = {
 }
 export type Task = {
   _created: number
-  _data_type: string
+  _data_type: Priority
   _is_deleted: boolean
   _modified: number
   _self_link: string
@@ -14,3 +14,5 @@ export type Task = {
   completed: boolean
   title: string
 }
+
+export type Priority = 'low' | 'medium' | 'high'

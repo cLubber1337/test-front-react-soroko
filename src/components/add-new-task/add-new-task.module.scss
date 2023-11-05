@@ -22,3 +22,16 @@
   justify-content: space-between;
   margin-top: 2rem;
 }
+
+.title {
+  font-size: var(--text-lg);
+  font-weight: var(--font-bold);
+}
+
+.priority {
+  margin: 1rem 0;
+}
+
+.list {
+  display: flex;
+}

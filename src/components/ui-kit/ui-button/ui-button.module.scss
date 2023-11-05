@@ -3,7 +3,7 @@
   user-select: none;
 
   display: flex;
-  gap: 2px;
+  gap: 6px;
   align-items: center;
   justify-content: center;
 
@@ -22,6 +22,11 @@
   &:focus-visible {
     outline: 2px solid var(--color-caption);
   }
+
+  &:disabled {
+    cursor: auto;
+    scale: 100%;
+  }
 }
 
 .contained {
@@ -35,7 +40,6 @@
   }
 
   &:disabled {
-    cursor: auto;
     background: var(--gradient-primary-disabled);
   }
 }

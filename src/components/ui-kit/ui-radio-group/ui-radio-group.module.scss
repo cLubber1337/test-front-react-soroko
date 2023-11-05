@@ -1,0 +1,40 @@
+.form {
+  display: flex;
+  align-items: center;
+}
+
+.radioGroup {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  margin-left: auto;
+}
+
+.label {
+  font-size: var(--text-lg);
+  font-weight: var(--font-bold);
+}
+
+.item {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.radio {
+  padding: 6px;
+  border-radius: 100%;
+
+  &:hover {
+    background-color: var(--color-icon-hover);
+  }
+}
+
+.priority {
+  padding: 4px 8px;
+  color: var(--color-white);
+}
+
+.indicator {
+  color: var(--color-icon);
+}

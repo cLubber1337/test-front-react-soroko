@@ -1,27 +1,35 @@
 import s from './sidebar.module.scss'
 import { UiButton } from '@/components/ui-kit'
-import { useState } from 'react'
-import { TaskStatus } from '@/libs/types.ts'
 import clsx from 'clsx'
-import { data } from '@/libs/data.ts'
+import { priorityDataSidebar } from '@/libs/data.ts'
+import { Priority } from '@/services/api/types.ts'
+import { faCircle } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useAppDispatch, useAppSelector } from '@/services/redux/hooks.ts'
+import { selectTasksPriority, setPriority } from '@/services/redux/tasks'
 
 export const Sidebar = () => {
-  const [activeItem, setActiveItem] = useState<TaskStatus>('All')
+  const dispatch = useAppDispatch()
+  const currentPriority = useAppSelector(selectTasksPriority)
 
-  function handleClickItem(status: TaskStatus) {
-    setActiveItem(status)
+  function handleClickItem(priority: Priority | 'all') {
+    dispatch(setPriority(priority))
   }
 
   return (
     <nav className={s.sidebar}>
       <ul className={s.list}>
-        {data.map(({ id, status }) => (
+        {priorityDataSidebar.map(({ priority, id, color }) => (
           <li
             key={id}
-            className={clsx(s.item, { [s.activeItem]: activeItem === status })}
-            onClick={() => handleClickItem(status)}
+            style={{ borderColor: color }}
+            className={clsx(s.item, { [s.activeItem]: currentPriority === priority })}
+            onClick={() => handleClickItem(priority)}
           >
-            <UiButton variant={activeItem === status ? 'outlined' : 'contained'}>{status}</UiButton>
+            <UiButton variant={currentPriority === priority ? 'outlined' : 'contained'}>
+              {priority[0].toUpperCase() + priority.slice(1)}
+              <FontAwesomeIcon icon={faCircle} color={color} />
+            </UiButton>
           </li>
         ))}
       </ul>

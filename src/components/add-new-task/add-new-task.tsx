@@ -1,30 +1,43 @@
 import s from './add-new-task.module.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
-import { UiButton, UiDialog, UiTextarea } from '@/components/ui-kit'
-import { useState } from 'react'
-import { taskApi } from '@/services/api/task-api.ts'
+import { faPlus, faSpinner } from '@fortawesome/free-solid-svg-icons'
+import { UiButton, UiDialog, UiRadioGroup, UiTextarea } from '@/components/ui-kit'
+import { FormEvent, useState } from 'react'
+import { useAppDispatch, useAppSelector } from '@/services/redux/hooks.ts'
+import { selectTasksErrors, selectTasksLoading } from '@/services/redux/tasks/tasks.selector.ts'
+import { tasksThunks } from '@/services/redux/tasks'
+import { toast } from 'react-toastify'
+import { Priority } from '@/services/api/types.ts'
+import { priorityData } from '@/libs/data.ts'
 
 export const AddNewTask = () => {
-  const [open, setOpen] = useState(false)
-  const [value, setValue] = useState('')
+  const dispatch = useAppDispatch()
+  const isLoading = useAppSelector(selectTasksLoading)
+  const errorMessages = useAppSelector(selectTasksErrors)
+  const [priority, setPriority] = useState<Priority>('low')
+  const [openModal, setOpenModal] = useState(false)
+  const [title, setTitle] = useState('')
 
-  const handleClick = async () => {
-    try {
-      if (value.length > 0) {
-        await taskApi.createTask(value)
-        setOpen(false)
-        setValue('')
-      }
-    } catch (error) {
-      console.log(error)
-    }
+  const handleCreateTask = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    dispatch(tasksThunks.createTask({ priority, title }))
+      .unwrap()
+      .then(() => {
+        setOpenModal(false)
+        setTitle('')
+      })
+      .catch(() => {
+        if (errorMessages) {
+          toast.error(`${errorMessages.title}: ${errorMessages.message}`)
+        } else {
+          toast.error('Something went wrong')
+        }
+      })
   }
-
   return (
     <UiDialog
-      isOpen={open}
-      setIsOpen={setOpen}
+      isOpen={openModal}
+      setIsOpen={setOpenModal}
       trigger={
         <button className={s.addTaskBtn}>
           <FontAwesomeIcon icon={faPlus} />
@@ -33,17 +46,33 @@ export const AddNewTask = () => {
       title={'Add new task'}
       content={
         <div>
-          <UiTextarea
-            placeholder={'your task...'}
-            className={s.textarea}
-            onChange={event => setValue(event.target.value)}
-          />
-          <div className={s.actions}>
-            <UiButton onClick={() => setOpen(false)} variant={'outlined'}>
-              Cancel
-            </UiButton>
-            <UiButton onClick={handleClick}>Add</UiButton>
+          <div className={s.priority}>
+            <UiRadioGroup
+              items={priorityData}
+              label={'Priority'}
+              onChangeValue={setPriority}
+              value={priority}
+            />
           </div>
+          <form onSubmit={handleCreateTask}>
+            <UiTextarea
+              name={'task'}
+              required
+              disabled={isLoading}
+              placeholder={'your task...'}
+              className={s.textarea}
+              onChange={event => setTitle(event.target.value)}
+            />
+            <div className={s.actions}>
+              <UiButton onClick={() => setOpenModal(false)} variant={'outlined'}>
+                Cancel
+              </UiButton>
+              <UiButton type={'submit'} disabled={isLoading}>
+                {isLoading && <FontAwesomeIcon icon={faSpinner} className={'spinner'} />}
+                Add new task
+              </UiButton>
+            </div>
+          </form>
         </div>
       }
     />

@@ -4,12 +4,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { UiButton } from '@/components/ui-kit'
 import { Link } from 'react-router-dom'
 import { ROUTES } from '@/routes/routes.ts'
+import { memo } from 'react'
 
 type TaskCardMenuProps = {
-  id?: string
+  id: string
+  deleteTask: () => void
 }
 
-export const TaskCardMenu = ({ id }: TaskCardMenuProps) => {
+export const TaskCardMenu = memo(({ id, deleteTask }: TaskCardMenuProps) => {
   return (
     <div className={s.taskCardMenu}>
       <h3 className={s.title}>Task menu</h3>
@@ -27,11 +29,11 @@ export const TaskCardMenu = ({ id }: TaskCardMenuProps) => {
           <FontAwesomeIcon icon={faPenToSquare} />
           Edit
         </UiButton>
-        <UiButton variant={'unstyled'} className={s.item}>
+        <UiButton variant={'unstyled'} onClick={deleteTask} className={s.item}>
           <FontAwesomeIcon icon={faTrashCan} />
           Delete
         </UiButton>
       </div>
     </div>
   )
-}
+})

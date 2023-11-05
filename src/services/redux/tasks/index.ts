@@ -5,3 +5,4 @@ export {
   selectTasksLoading,
 } from './tasks.selector.ts'
 export * from './tasks.slice.ts'
+export { tasksThunks } from './tasks.thunks.ts'

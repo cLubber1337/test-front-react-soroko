@@ -1,13 +1,18 @@
 import clsx from 'clsx'
-import { ReactNode } from 'react'
+import { CSSProperties, ReactNode } from 'react'
 
 import s from './ui-card.module.scss'
 
 type UiCardProps = {
   className?: string
   children?: ReactNode
+  styles?: CSSProperties
 }
 
-export const UiCard = ({ className = '', children }: UiCardProps) => {
-  return <div className={clsx(s.card, className)}>{children}</div>
+export const UiCard = ({ className = '', children, ...styles }: UiCardProps) => {
+  return (
+    <div className={clsx(s.card, className)} {...styles}>
+      {children}
+    </div>
+  )
 }

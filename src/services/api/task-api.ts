@@ -13,4 +13,10 @@ export const taskApi = {
     const requests = priorities.map(priority => instance.get<GetAllTasksResponse>(priority))
     return Promise.all(requests)
   },
+  deleteTask(priority: Priority, id: string) {
+    return instance.delete(`${priority}/${id}`)
+  },
+  updateCompletedStatus(priority: Priority, id: string, completed: boolean) {
+    return instance.put(`${priority}/${id}`, { completed })
+  },
 }

@@ -1,8 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { Priority, Task } from '@/services/api/types.ts'
-import { taskApi } from '@/services/api/task-api.ts'
-import { createAppAsyncThunk } from '../createAppAsyncThunk.ts'
-import { AxiosError } from 'axios'
+import { tasksThunks } from './tasks.thunks.ts'
 
 export type TasksState = {
   tasks: Task[]
@@ -17,36 +15,6 @@ const initialState: TasksState = {
   priority: 'all',
 }
 
-const fetchAllTasks = createAppAsyncThunk<Task[]>('tasks/fetchTasks', async (_, thunkAPI) => {
-  const { rejectWithValue } = thunkAPI
-  try {
-    const res = await taskApi.getAllTasks()
-    return res.reduceRight((acc: Task[], item) => [...acc, ...item.data.items], [])
-  } catch (error) {
-    if (error instanceof AxiosError) {
-      return rejectWithValue(error)
-    }
-    throw error
-  }
-})
-
-const createTask = createAppAsyncThunk<Task[], { title: string; priority: Priority }>(
-  'tasks/createTask',
-  async ({ title, priority }, thunkAPI) => {
-    const { rejectWithValue, dispatch } = thunkAPI
-    try {
-      dispatch(setPriority(priority))
-      const { data } = await taskApi.createTask(priority, title)
-      return data.items
-    } catch (error) {
-      if (error instanceof AxiosError) {
-        return rejectWithValue(error)
-      }
-      throw error
-    }
-  }
-)
-
 export const tasksSlice = createSlice({
   name: 'tasks',
   initialState,
@@ -54,48 +22,60 @@ export const tasksSlice = createSlice({
     setPriority: (state, action: PayloadAction<Priority | 'all'>) => {
       state.priority = action.payload
     },
-    getTasksByPriority: (state, action: PayloadAction<Priority | 'all'>) => {
-      state.tasks = state.tasks.filter(task => task._data_type === action.payload)
-    },
   },
   extraReducers: builder => {
     builder
-      .addCase(fetchAllTasks.fulfilled, (state, action) => {
+      .addCase(tasksThunks.fetchAllTasks.fulfilled, (state, action) => {
         state.tasks = action.payload
-        state.loading = false
       })
-      .addCase(fetchAllTasks.pending, state => {
-        state.loading = true
+      .addCase(tasksThunks.createTask.fulfilled, (state, action) => {
+        state.tasks.unshift(action.payload[0])
       })
-      .addCase(fetchAllTasks.rejected, (state, action) => {
-        state.loading = false
-        if (action.payload) {
-          state.error = {
-            title: (action.payload.response?.data as { error: string }).error,
-            message: 'Failed to fetch tasks',
+      .addCase(tasksThunks.deleteTask.fulfilled, (state, action) => {
+        state.tasks = state.tasks.filter(task => task._uuid !== action.payload._uuid)
+      })
+      .addCase(tasksThunks.updateTask.fulfilled, (state, action) => {
+        state.tasks = state.tasks.map(task => {
+          if (task._uuid === action.payload._uuid) {
+            return action.payload
           }
-        }
+          return task
+        })
       })
     builder
-      .addCase(createTask.fulfilled, (state, action) => {
-        state.tasks.unshift(action.payload[0])
-        state.loading = false
-      })
-      .addCase(createTask.pending, state => {
-        state.loading = true
-      })
-      .addCase(createTask.rejected, (state, action) => {
-        state.loading = false
-        if (action.payload) {
-          state.error = {
-            title: (action.payload.response?.data as { error: string }).error,
-            message: 'Failed to create task',
+      .addMatcher(
+        action => {
+          return action.type.endsWith('/pending')
+        },
+        state => {
+          state.loading = true
+        }
+      )
+      .addMatcher(
+        action => {
+          return action.type.endsWith('/rejected')
+        },
+        (state, action) => {
+          state.loading = false
+          if (action.payload) {
+            state.error = {
+              title: 'Failed',
+              message: (action.payload.response?.data as { error: string }).error,
+            }
           }
         }
-      })
+      )
+      .addMatcher(
+        action => {
+          return action.type.endsWith('/fulfilled')
+        },
+        state => {
+          state.loading = false
+        }
+      )
   },
 })
 
-export const { setPriority, getTasksByPriority } = tasksSlice.actions
-export const tasksThunks = { fetchAllTasks, createTask }
+export const { setPriority } = tasksSlice.actions
+
 export default tasksSlice.reducer

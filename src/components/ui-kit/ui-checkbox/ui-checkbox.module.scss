@@ -1,3 +1,9 @@
+.root {
+  &:disabled {
+    cursor: auto;
+  }
+}
+
 .checkbox {
   user-select: none;
   display: flex;
@@ -12,7 +18,7 @@
 .label {
   display: flex;
   align-items: center;
-  padding-right: 6px;
+  font-size: var(--tesxt-sm);
   opacity: 0.6;
 }
 

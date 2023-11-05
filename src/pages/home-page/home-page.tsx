@@ -10,6 +10,8 @@ import {
   tasksThunks,
 } from '@/services/redux/tasks'
 import { useEffect } from 'react'
+import { toast } from 'react-toastify'
+import { formatDate } from '@/libs/utils.ts'
 
 export const HomePage = () => {
   const dispatch = useAppDispatch()
@@ -22,37 +24,31 @@ export const HomePage = () => {
     dispatch(tasksThunks.fetchAllTasks())
   }, [dispatch])
 
+  useEffect(() => {
+    if (errorMessage) {
+      toast.error(`${errorMessage.title}: ${errorMessage.message}`)
+    }
+  }, [errorMessage])
+
   const tasksByPriority = tasks.filter(task =>
     activePriority === 'all' ? task : task._data_type === activePriority
   )
 
   return (
     <main className={s.homePage}>
-      {errorMessage && (
-        <div>
-          <h1>{errorMessage.title}</h1>
-          <p>{errorMessage.message}</p>
-        </div>
-      )}
       <div className={s.taskList}>
-        {loading ? (
-          <div>Loading...</div>
-        ) : (
-          tasksByPriority.map(task => (
-            <TaskCard
-              key={task._uuid}
-              isDone={task.completed}
-              setIsDone={(isDone: boolean) => {
-                console.log(isDone)
-              }}
-              id={task._uuid}
-              createdAt={task._created}
-              priority={task._data_type}
-            >
-              {task.title}
-            </TaskCard>
-          ))
-        )}
+        {tasksByPriority.map(task => (
+          <TaskCard
+            key={task._uuid}
+            isDone={task.completed}
+            id={task._uuid}
+            createdAt={formatDate(task._created)}
+            priority={task._data_type}
+            isLoading={loading}
+          >
+            {task.title}
+          </TaskCard>
+        ))}
       </div>
     </main>
   )

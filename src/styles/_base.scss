@@ -169,6 +169,10 @@ body {
   animation: rotate 2s infinite linear;
 }
 
+.blinking-element {
+  animation: blink 1.5s infinite;
+}
+
 @keyframes rotate {
   0% {
     transform: rotate(0deg);
@@ -176,5 +180,19 @@ body {
 
   100% {
     transform: rotate(360deg);
+  }
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.4;
+  }
+
+  100% {
+    opacity: 1;
   }
 }

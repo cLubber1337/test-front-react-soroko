@@ -9,10 +9,12 @@ type UiPopoverProps = {
   trigger: ReactNode
   content: ReactNode
   className?: string
+  open: boolean
+  onOpenChange: (open: boolean) => void
 }
-export const UiPopover = ({ trigger, content }: UiPopoverProps) => {
+export const UiPopover = ({ trigger, content, open, onOpenChange }: UiPopoverProps) => {
   return (
-    <Popover.Root>
+    <Popover.Root onOpenChange={onOpenChange} open={open}>
       <Popover.Trigger asChild>{trigger}</Popover.Trigger>
       <Popover.Portal>
         <Popover.Content sideOffset={5} className={s.content}>

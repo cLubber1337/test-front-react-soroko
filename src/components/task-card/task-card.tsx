@@ -2,7 +2,7 @@ import clsx from 'clsx'
 import { UiCard, UiCheckbox, UiPopover } from '@/components/ui-kit'
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { memo, ReactNode, useCallback } from 'react'
+import { memo, useCallback, useState } from 'react'
 
 import s from './task-card.module.scss'
 import { TaskCardMenu } from '../task-card-menu/task-card-menu.tsx'
@@ -13,22 +13,23 @@ import { tasksThunks } from '@/services/redux/tasks'
 
 interface TaskCardProps {
   className?: string
-  children?: ReactNode
   isDone?: boolean
   id: string
   createdAt?: string
   priority: Priority
   isLoading?: boolean
+  title: string
 }
 
 export const TaskCard = memo(
-  ({ className, isDone, children, createdAt, id, priority, isLoading }: TaskCardProps) => {
+  ({ className, isDone, createdAt, id, priority, isLoading, title }: TaskCardProps) => {
     const dispatch = useAppDispatch()
+    const [openPopover, setOpenPopover] = useState(false)
     const colorPriority = priorityData.find(data => data.priority === priority)?.color || 'white'
 
     const updateCompletedStatus = useCallback(
       (completed: boolean) => {
-        dispatch(tasksThunks.updateTask({ priority, id, completed }))
+        dispatch(tasksThunks.updateCompletedStatus({ priority, id, completed }))
       },
       [dispatch, id, priority]
     )
@@ -41,15 +42,19 @@ export const TaskCard = memo(
         <div className={s.header}>
           <h3 className={s.createdAt}>Created at {createdAt}</h3>
           <UiPopover
+            open={openPopover}
+            onOpenChange={setOpenPopover}
             trigger={
               <button className={s.actions}>
                 <FontAwesomeIcon icon={faEllipsis} />
               </button>
             }
-            content={<TaskCardMenu id={id} deleteTask={deleteTask} />}
+            content={
+              <TaskCardMenu priority={priority} id={id} deleteTask={deleteTask} title={title} />
+            }
           />
         </div>
-        <div className={clsx(s.content, isDone && s.contentDone)}>{children}</div>
+        <div className={clsx(s.content, isDone && s.contentDone)}>{title}</div>
         <div className={s.footer}>
           <div className={s.priority} style={{ backgroundColor: colorPriority }}>
             {priority}

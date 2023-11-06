@@ -10,7 +10,19 @@
 }
 
 .item {
+  display: flex;
   gap: 0.5rem;
   justify-content: flex-start;
+
+  padding: 0.5rem 1rem;
+
   font-size: var(--tesxt-sm);
+  font-weight: var(--font-medium);
+
+  border-radius: 8px;
+
+  &:hover {
+    background-color: var(--color-icon-hover);
+    transition: background-color 0.3s ease;
+  }
 }

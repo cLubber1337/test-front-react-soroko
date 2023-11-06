@@ -45,9 +45,8 @@ export const HomePage = () => {
             createdAt={formatDate(task._created)}
             priority={task._data_type}
             isLoading={loading}
-          >
-            {task.title}
-          </TaskCard>
+            title={task.title}
+          />
         ))}
       </div>
     </main>

@@ -17,12 +17,11 @@
 
 .item {
   display: flex;
-  gap: 6px;
   align-items: center;
 }
 
 .radio {
-  padding: 6px;
+  padding: 6px 7px;
   border-radius: 100%;
 
   &:hover {

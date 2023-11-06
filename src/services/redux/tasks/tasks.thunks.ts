@@ -49,7 +49,7 @@ const deleteTask = createAppAsyncThunk<Task, { id: string; priority: Priority }>
   }
 )
 
-const updateTask = createAppAsyncThunk<
+const updateCompletedStatus = createAppAsyncThunk<
   Task,
   { id: string; priority: Priority; completed: boolean }
 >('tasks/updateTask', async ({ id, priority, completed }, thunkAPI) => {
@@ -65,4 +65,26 @@ const updateTask = createAppAsyncThunk<
   }
 })
 
-export const tasksThunks = { fetchAllTasks, createTask, deleteTask, updateTask }
+const updateTitle = createAppAsyncThunk<Task, { id: string; priority: Priority; title: string }>(
+  'tasks/updateTitle',
+  async ({ id, priority, title }, thunkAPI) => {
+    const { rejectWithValue } = thunkAPI
+    try {
+      const { data } = await taskApi.updateTitle(priority, id, title)
+      return data
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        return rejectWithValue(error)
+      }
+      throw error
+    }
+  }
+)
+
+export const tasksThunks = {
+  fetchAllTasks,
+  createTask,
+  deleteTask,
+  updateCompletedStatus,
+  updateTitle,
+}

@@ -19,4 +19,7 @@ export const taskApi = {
   updateCompletedStatus(priority: Priority, id: string, completed: boolean) {
     return instance.put(`${priority}/${id}`, { completed })
   },
+  updateTitle(priority: Priority, id: string, title: string) {
+    return instance.put(`${priority}/${id}`, { title })
+  },
 }

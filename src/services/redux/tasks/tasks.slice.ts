@@ -34,7 +34,15 @@ export const tasksSlice = createSlice({
       .addCase(tasksThunks.deleteTask.fulfilled, (state, action) => {
         state.tasks = state.tasks.filter(task => task._uuid !== action.payload._uuid)
       })
-      .addCase(tasksThunks.updateTask.fulfilled, (state, action) => {
+      .addCase(tasksThunks.updateCompletedStatus.fulfilled, (state, action) => {
+        state.tasks = state.tasks.map(task => {
+          if (task._uuid === action.payload._uuid) {
+            return action.payload
+          }
+          return task
+        })
+      })
+      .addCase(tasksThunks.updateTitle.fulfilled, (state, action) => {
         state.tasks = state.tasks.map(task => {
           if (task._uuid === action.payload._uuid) {
             return action.payload

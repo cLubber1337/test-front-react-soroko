@@ -30,7 +30,7 @@ export const AddNewTask = () => {
         if (errorMessages) {
           toast.error(`${errorMessages.title}: ${errorMessages.message}`)
         } else {
-          toast.error('Something went wrong')
+          toast.error('Failed to create task')
         }
       })
   }

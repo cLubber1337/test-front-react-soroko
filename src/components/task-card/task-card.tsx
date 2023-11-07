@@ -3,14 +3,13 @@ import { UiCard, UiCheckbox, UiDialog, UiPopover, UiSpinner } from '@/components
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { memo, useCallback, useState } from 'react'
-
-import s from './task-card.module.scss'
 import { TaskCardMenu } from '../task-card-menu/task-card-menu.tsx'
 import { Priority } from '@/services/api/types.ts'
 import { priorityData } from '@/libs/data.ts'
 import { useAppDispatch } from '@/services/redux/hooks.ts'
 import { tasksThunks } from '@/services/redux/tasks'
 import { EditTaskCard } from '@/components/edit-task-card/edit-task-card.tsx'
+import s from './task-card.module.scss'
 
 interface TaskCardProps {
   className?: string

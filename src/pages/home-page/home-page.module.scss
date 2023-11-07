@@ -1,12 +1,26 @@
+@import '@/styles/vars';
+
 .homePage {
   margin-top: var(--header-height);
   padding: 2rem;
+
+  @media (max-width: $breakpoint-tablet) {
+    padding: 1rem 0;
+  }
 }
 
-.taskList {
+.tasksList {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: 1rem;
+
+  @media (max-width: $breakpoint-mobile) {
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  }
+}
+
+.tasksItem {
+  position: relative;
 }
 
 .actions {
@@ -15,6 +29,23 @@
   color: var(--color-icon);
 }
 
-.test {
-  background-color: #3d46fa;
+.sorting {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-bottom: 22px;
+
+  @media (max-width: $breakpoint-mobile) {
+    flex-direction: column;
+    gap: 6px;
+  }
+}
+
+.select {
+  min-width: 230px;
+}
+
+.selectLabel {
+  margin-right: 8px;
+  font-weight: var(--font-bold);
 }

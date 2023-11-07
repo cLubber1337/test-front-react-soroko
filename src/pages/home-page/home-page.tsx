@@ -1,6 +1,5 @@
 import { TaskCard } from '@/components/task-card/task-card.tsx'
 
-import s from './home-page.module.scss'
 import { useAppDispatch, useAppSelector } from '@/services/redux/hooks.ts'
 import {
   selectAllTasks,
@@ -9,9 +8,13 @@ import {
   selectTasksPriority,
   tasksThunks,
 } from '@/services/redux/tasks'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { formatDate } from '@/libs/utils.ts'
+import { UiSelect } from '@/components/ui-kit/ui-select/ui-select.tsx'
+import { sortTasksOptions } from '@/libs/data.ts'
+import { SelectOption } from '@/libs/types.ts'
+import s from './home-page.module.scss'
 
 export const HomePage = () => {
   const dispatch = useAppDispatch()
@@ -19,6 +22,7 @@ export const HomePage = () => {
   const errorMessage = useAppSelector(selectTasksErrors)
   const isLoading = useAppSelector(selectTasksLoading)
   const activePriority = useAppSelector(selectTasksPriority)
+  const [sortOptions, setSortOptions] = useState<SelectOption>(sortTasksOptions[0])
 
   useEffect(() => {
     dispatch(tasksThunks.fetchAllTasks())
@@ -36,18 +40,28 @@ export const HomePage = () => {
 
   return (
     <main className={s.homePage}>
-      <div className={s.taskList}>
-        {tasksByPriority.map(task => (
-          <TaskCard
-            key={task._uuid}
-            isDone={task.completed}
-            id={task._uuid}
-            createdAt={formatDate(task._created)}
-            priority={task._data_type}
-            title={task.title}
-          />
-        ))}
+      <div className={s.sorting}>
+        <span className={s.selectLabel}>Sort by:</span>
+        <UiSelect
+          className={s.select}
+          options={sortTasksOptions}
+          value={sortOptions}
+          onChange={setSortOptions}
+        />
       </div>
+      <ul className={s.tasksList}>
+        {tasksByPriority.map(task => (
+          <li className={s.tasksItem} key={task._uuid}>
+            <TaskCard
+              isDone={task.completed}
+              id={task._uuid}
+              createdAt={formatDate(task._created)}
+              priority={task._data_type}
+              title={task.title}
+            />
+          </li>
+        ))}
+      </ul>
     </main>
   )
 }

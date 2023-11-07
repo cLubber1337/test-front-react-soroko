@@ -1,3 +1,5 @@
+@import '@/styles/vars';
+
 .textarea {
   min-height: 120px;
 }
@@ -7,4 +9,15 @@
   align-items: center;
   justify-content: space-between;
   margin-top: 2.5rem;
+
+  @media (max-width: $breakpoint-mobile) {
+    flex-direction: column-reverse;
+    gap: 1rem;
+  }
+}
+
+.action {
+  @media (max-width: $breakpoint-mobile) {
+    width: 100%;
+  }
 }

@@ -27,7 +27,7 @@ export const EditTaskCard = memo(({ title, setOpenModal, priority, id }: EditTas
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    dispatch(tasksThunks.updateTitle({ priority, id, title: value }))
+    dispatch(tasksThunks.updateTitle({ priority, id, title: value.trim() }))
       .unwrap()
       .then(() => {
         setOpenModal(false)
@@ -45,15 +45,15 @@ export const EditTaskCard = memo(({ title, setOpenModal, priority, id }: EditTas
         required
         ref={textareaRef}
         value={value}
-        onChange={e => setValue(e.target.value.trim())}
+        onChange={e => setValue(e.target.value)}
         className={s.textarea}
         disabled={isLoading}
       />
       <div className={s.footer}>
-        <UiButton onClick={() => setOpenModal(false)} variant={'outlined'}>
+        <UiButton className={s.action} onClick={() => setOpenModal(false)} variant={'outlined'}>
           Cancel
         </UiButton>
-        <UiButton type={'submit'} disabled={isLoading}>
+        <UiButton className={s.action} type={'submit'} disabled={isLoading}>
           {isLoading && <FontAwesomeIcon icon={faSpinner} className={'spinner'} />}
           Apply changes
         </UiButton>

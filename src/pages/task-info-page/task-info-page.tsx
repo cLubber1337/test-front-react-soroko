@@ -6,9 +6,10 @@ import { Priority } from '@/services/api/types.ts'
 import { useEffect } from 'react'
 import { clearTask, selectTask, selectTasksLoading, tasksThunks } from '@/services/redux/tasks'
 import { formatDate } from '@/libs/utils.ts'
-import { PriorityData, priorityData } from '@/libs/data.ts'
+import { priorityData } from '@/libs/data.ts'
 import { faLeftLong } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { PriorityData } from '@/libs/types.ts'
 
 export const TaskInfoPage = () => {
   const dispatch = useAppDispatch()

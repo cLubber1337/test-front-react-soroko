@@ -1,4 +1,4 @@
-import { Priority } from '@/services/api/types.ts'
+import { PriorityData, SelectOption } from '@/libs/types.ts'
 
 export const priorityData: PriorityData[] = [
   {
@@ -25,8 +25,21 @@ export const priorityDataSidebar: PrioritySidebar[] = [
   ...priorityData,
 ]
 
-export type PriorityData = {
-  id: string
-  priority: Priority
-  color: string
-}
+export const sortTasksOptions: SelectOption[] = [
+  {
+    value: 1,
+    title: 'created: old to new',
+  },
+  {
+    value: 2,
+    title: 'created: new to old',
+  },
+  {
+    value: 3,
+    title: 'completed: false to true',
+  },
+  {
+    value: 4,
+    title: 'completed: true to false',
+  },
+]

@@ -1,3 +1,5 @@
+@import '@/styles/vars';
+
 .addTaskBtn {
   padding: 3px 8px;
 
@@ -15,21 +17,22 @@
 
 .textarea {
   min-height: 100px;
+  margin: 2rem 0;
 }
 
 .actions {
   display: flex;
   justify-content: space-between;
-  margin-top: 2rem;
+
+  @media (max-width: $breakpoint-mobile) {
+    flex-direction: column-reverse;
+    gap: 1rem;
+  }
 }
 
 .title {
   font-size: var(--text-lg);
   font-weight: var(--font-bold);
-}
-
-.priority {
-  margin: 1rem 0;
 }
 
 .list {

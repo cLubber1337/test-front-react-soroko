@@ -1,0 +1,85 @@
+@import 'src/styles/vars';
+
+.select {
+  cursor: pointer;
+  user-select: none;
+
+  position: relative;
+
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: space-between;
+
+  height: 36px;
+  padding: 0 8px;
+
+  background-color: var(--color-white);
+  border: var(--border-primary);
+  border-radius: 8px;
+  box-shadow: var(--shadow-input);
+
+  &.borderBottom {
+    border-radius: 8px 8px 0 0;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-caption);
+  }
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+
+  padding-top: 3px;
+
+  color: var(--color-icon);
+
+  transition: transform 0.3s;
+}
+
+.iconRotate {
+  transform: rotate(180deg);
+}
+
+.options {
+  position: absolute;
+  z-index: var(--z-select);
+  top: calc(100% + 1px);
+  left: -1px;
+
+  display: none;
+
+  width: calc(100% + 2px);
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+
+  background-color: var(--color-white);
+  border: var(--border-primary);
+  border-top: none;
+  border-radius: 0 0 8px 8px;
+  box-shadow: var(--shadow-input);
+
+  &.show {
+    display: block;
+  }
+}
+
+.option {
+  padding: 8px;
+
+  &:hover {
+    background-color: var(--color-info-hover);
+  }
+
+  &:last-child {
+    border-radius: 0 0 8px 8px;
+  }
+}
+
+.highlighted {
+  background-color: var(--color-info-hover);
+}

@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faXmark } from '@fortawesome/free-solid-svg-icons'
 
 interface UiDialogProps {
-  trigger: ReactNode
+  trigger?: ReactNode
   content: ReactNode
   title?: string
   isOpen: boolean

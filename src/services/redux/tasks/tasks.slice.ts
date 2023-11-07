@@ -7,12 +7,14 @@ export type TasksState = {
   loading: boolean
   error: { title: string; message: string } | null
   priority: Priority | 'all'
+  task: Task | null
 }
 const initialState: TasksState = {
   tasks: [],
   loading: false,
   error: null,
   priority: 'all',
+  task: null,
 }
 
 export const tasksSlice = createSlice({
@@ -21,6 +23,9 @@ export const tasksSlice = createSlice({
   reducers: {
     setPriority: (state, action: PayloadAction<Priority | 'all'>) => {
       state.priority = action.payload
+    },
+    clearTask: state => {
+      state.task = null
     },
   },
   extraReducers: builder => {
@@ -49,6 +54,9 @@ export const tasksSlice = createSlice({
           }
           return task
         })
+      })
+      .addCase(tasksThunks.fetchTask.fulfilled, (state, action) => {
+        state.task = action.payload
       })
     builder
       .addMatcher(
@@ -84,6 +92,6 @@ export const tasksSlice = createSlice({
   },
 })
 
-export const { setPriority } = tasksSlice.actions
+export const { setPriority, clearTask } = tasksSlice.actions
 
 export default tasksSlice.reducer

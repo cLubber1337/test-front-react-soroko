@@ -21,7 +21,7 @@ const router = createBrowserRouter([
     children: routes,
   },
   {
-    path: `${ROUTES.TASK_INFO}/:id`,
+    path: `${ROUTES.TASK_INFO}/:priority/:id`,
     element: (
       <>
         <Header />

@@ -4,7 +4,7 @@ import { taskApi } from '@/services/api/task-api.ts'
 import { AxiosError } from 'axios'
 import { setPriority } from './tasks.slice.ts'
 
-const fetchAllTasks = createAppAsyncThunk<Task[]>('tasks/fetchTasks', async (_, thunkAPI) => {
+const fetchAllTasks = createAppAsyncThunk<Task[]>('tasks/fetchAllTasks', async (_, thunkAPI) => {
   const { rejectWithValue } = thunkAPI
   try {
     const res = await taskApi.getAllTasks()
@@ -16,6 +16,22 @@ const fetchAllTasks = createAppAsyncThunk<Task[]>('tasks/fetchTasks', async (_, 
     throw error
   }
 })
+
+const fetchTask = createAppAsyncThunk<Task, { priority: Priority; id: string }>(
+  'tasks/fetchTask',
+  async ({ priority, id }, thunkAPI) => {
+    const { rejectWithValue } = thunkAPI
+    try {
+      const { data } = await taskApi.getTask(priority, id)
+      return data
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        return rejectWithValue(error)
+      }
+      throw error
+    }
+  }
+)
 
 const createTask = createAppAsyncThunk<Task[], { title: string; priority: Priority }>(
   'tasks/createTask',
@@ -87,4 +103,5 @@ export const tasksThunks = {
   deleteTask,
   updateCompletedStatus,
   updateTitle,
+  fetchTask,
 }

@@ -6,3 +6,5 @@ export const selectTasksErrors = (state: RootState) => state.tasks.error
 export const selectTasksLoading = (state: RootState) => state.tasks.loading
 
 export const selectTasksPriority = (state: RootState) => state.tasks.priority
+
+export const selectTask = (state: RootState) => state.tasks.task

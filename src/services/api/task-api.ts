@@ -22,4 +22,7 @@ export const taskApi = {
   updateTitle(priority: Priority, id: string, title: string) {
     return instance.put(`${priority}/${id}`, { title })
   },
+  getTask(priority: Priority, id: string) {
+    return instance.get<Task>(`${priority}/${id}`)
+  },
 }

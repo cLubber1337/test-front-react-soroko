@@ -23,7 +23,7 @@ export const EditTaskCard = memo(({ title, setOpenModal, priority, id }: EditTas
 
   useEffect(() => {
     textareaRef.current?.setSelectionRange(value.length, value.length)
-  }, [textareaRef, value.length])
+  }, [])
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -37,16 +37,15 @@ export const EditTaskCard = memo(({ title, setOpenModal, priority, id }: EditTas
         toast.error('Failed to create task')
       })
   }
-  function handleChangeTitle(e: React.ChangeEvent<HTMLTextAreaElement>) {
-    setValue(e.target.value)
-  }
 
   return (
     <form onSubmit={handleSubmit} className={s.edittaskCard}>
       <UiTextarea
+        name={'title'}
+        required
         ref={textareaRef}
         value={value}
-        onChange={handleChangeTitle}
+        onChange={e => setValue(e.target.value.trim())}
         className={s.textarea}
         disabled={isLoading}
       />

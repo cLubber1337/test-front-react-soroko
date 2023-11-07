@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import { UiCard, UiCheckbox, UiPopover } from '@/components/ui-kit'
+import { UiCard, UiCheckbox, UiDialog, UiPopover } from '@/components/ui-kit'
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { memo, useCallback, useState } from 'react'
@@ -10,6 +10,7 @@ import { Priority } from '@/services/api/types.ts'
 import { priorityData } from '@/libs/data.ts'
 import { useAppDispatch } from '@/services/redux/hooks.ts'
 import { tasksThunks } from '@/services/redux/tasks'
+import { EditTaskCard } from '@/components/edit-task-card/edit-task-card.tsx'
 
 interface TaskCardProps {
   className?: string
@@ -25,6 +26,7 @@ export const TaskCard = memo(
   ({ className, isDone, createdAt, id, priority, isLoading, title }: TaskCardProps) => {
     const dispatch = useAppDispatch()
     const [openPopover, setOpenPopover] = useState(false)
+    const [openModal, setOpenModal] = useState(false)
     const colorPriority = priorityData.find(data => data.priority === priority)?.color || 'white'
 
     const updateCompletedStatus = useCallback(
@@ -50,11 +52,26 @@ export const TaskCard = memo(
               </button>
             }
             content={
-              <TaskCardMenu priority={priority} id={id} deleteTask={deleteTask} title={title} />
+              <TaskCardMenu
+                setOpenPopover={setOpenModal}
+                id={id}
+                priority={priority}
+                deleteTask={deleteTask}
+              />
             }
           />
+          <UiDialog
+            content={
+              <EditTaskCard priority={priority} id={id} title={title} setOpenModal={setOpenModal} />
+            }
+            isOpen={openModal}
+            setIsOpen={setOpenModal}
+            title={'Edit task'}
+          />
         </div>
+
         <div className={clsx(s.content, isDone && s.contentDone)}>{title}</div>
+
         <div className={s.footer}>
           <div className={s.priority} style={{ backgroundColor: colorPriority }}>
             {priority}

@@ -61,7 +61,7 @@ export const AddNewTask = () => {
               disabled={isLoading}
               placeholder={'your task...'}
               className={s.textarea}
-              onChange={event => setTitle(event.target.value)}
+              onChange={event => setTitle(event.target.value.trim())}
             />
             <div className={s.actions}>
               <UiButton onClick={() => setOpenModal(false)} variant={'outlined'}>

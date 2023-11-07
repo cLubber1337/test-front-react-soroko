@@ -135,7 +135,7 @@ body {
   font-weight: var(--font-normal);
   color: var(--color-primary);
 
-  background: url('src/assets/img/background.jpg') center top no-repeat;
+  background: url('../../public/background.jpg') center top no-repeat;
   background-size: cover;
 
   @media (max-width: $breakpoint-mobile) {

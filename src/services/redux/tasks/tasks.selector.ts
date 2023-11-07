@@ -9,3 +9,5 @@ export const selectTasksLoading = (state: RootState) => state.tasks.loading
 export const selectTasksPriority = (state: RootState) => state.tasks.priority
 
 export const selectTask = (state: RootState) => state.tasks.task
+
+export const selectSortOption = (state: RootState) => state.tasks.sortOption

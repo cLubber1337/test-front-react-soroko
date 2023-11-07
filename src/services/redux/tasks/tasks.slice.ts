@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { Priority, Task } from '@/services/api/types.ts'
 import { tasksThunks } from './tasks.thunks.ts'
 import { sortingProducts } from '@/libs/utils.ts'
+import { SelectOption } from '@/libs/types.ts'
 
 export type TasksState = {
   tasks: Task[]
@@ -10,12 +11,15 @@ export type TasksState = {
   error: { title: string; message: string } | null
   priority: Priority | 'all'
   task: Task | null
-  sortBy: string
+  sortOption: SelectOption
 }
 const initialState: TasksState = {
   tasks: [],
   sortedTasks: [],
-  sortBy: 'created: old to new',
+  sortOption: {
+    value: 1,
+    title: 'created: old to new',
+  },
   loading: false,
   error: null,
   priority: 'all',
@@ -28,14 +32,14 @@ export const tasksSlice = createSlice({
   reducers: {
     setPriority: (state, action: PayloadAction<Priority | 'all'>) => {
       state.priority = action.payload
-      const newTasks = sortingProducts([...state.sortedTasks], state.sortBy)
+      const newTasks = sortingProducts([...state.sortedTasks], state.sortOption.title)
       state.tasks = newTasks.filter(task =>
         action.payload === 'all' ? task : task._data_type === action.payload
       )
     },
-    setSortBy: (state, action: PayloadAction<string>) => {
-      state.sortBy = action.payload
-      state.tasks = sortingProducts(state.tasks, action.payload)
+    setSortOption: (state, action: PayloadAction<SelectOption>) => {
+      state.sortOption = action.payload
+      state.tasks = sortingProducts(state.tasks, action.payload.title)
     },
     clearTask: state => {
       state.task = null
@@ -44,7 +48,9 @@ export const tasksSlice = createSlice({
   extraReducers: builder => {
     builder
       .addCase(tasksThunks.fetchAllTasks.fulfilled, (state, action) => {
-        state.tasks = sortingProducts(action.payload, state.sortBy)
+        state.tasks = sortingProducts(action.payload, state.sortOption.title).filter(task =>
+          state.priority === 'all' ? task : task._data_type === state.priority
+        )
         state.sortedTasks = action.payload
       })
       .addCase(tasksThunks.createTask.fulfilled, (state, action) => {
@@ -107,6 +113,6 @@ export const tasksSlice = createSlice({
   },
 })
 
-export const { setPriority, clearTask, setSortBy } = tasksSlice.actions
+export const { setPriority, clearTask, setSortOption } = tasksSlice.actions
 
 export default tasksSlice.reducer

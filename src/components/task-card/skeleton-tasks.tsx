@@ -7,7 +7,7 @@ type SkeletonTaskCardType = {
   count: number
 }
 
-export const SkeletonTaskCard = memo(({ count }: SkeletonTaskCardType) => {
+export const SkeletonTasks = memo(({ count }: SkeletonTaskCardType) => {
   const items = Array.from({ length: count }, (_, i) => i + 1)
 
   return (

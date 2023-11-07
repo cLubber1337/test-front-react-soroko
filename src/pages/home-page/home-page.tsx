@@ -1,22 +1,29 @@
 import { TaskCard } from '@/components/task-card/task-card.tsx'
 
 import { useAppDispatch, useAppSelector } from '@/services/redux/hooks.ts'
-import { selectAllTasks, selectTasksErrors, setSortBy, tasksThunks } from '@/services/redux/tasks'
-import { useEffect, useState } from 'react'
+import {
+  selectAllTasks,
+  selectSortOption,
+  selectTasksErrors,
+  setSortOption,
+  tasksThunks,
+} from '@/services/redux/tasks'
+import { useCallback, useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { formatDate } from '@/libs/utils.ts'
 import { UiSelect } from '@/components/ui-kit/ui-select/ui-select.tsx'
 import { sortTasksOptions } from '@/libs/data.ts'
 import { SelectOption } from '@/libs/types.ts'
 import s from './home-page.module.scss'
-import { SkeletonTaskCard } from '@/components/task-card/skeleton-task-card.tsx'
+import { SkeletonTasks } from '@/components/task-card/skeleton-tasks.tsx'
 
 export const HomePage = () => {
   const dispatch = useAppDispatch()
   const [isLoading, setIsLoading] = useState(false)
   const tasks = useAppSelector(selectAllTasks)
   const errorMessage = useAppSelector(selectTasksErrors)
-  const [sortOptions, setSortOptions] = useState<SelectOption>(sortTasksOptions[0])
+  const sortOption = useAppSelector(selectSortOption)
+  const [sortOptions, setSortOptions] = useState<SelectOption>(sortOption)
 
   useEffect(() => {
     setIsLoading(true)
@@ -33,10 +40,13 @@ export const HomePage = () => {
     }
   }, [errorMessage])
 
-  function handleSort(value: SelectOption) {
-    setSortOptions(value)
-    dispatch(setSortBy(value.title))
-  }
+  const handleSort = useCallback(
+    (value: SelectOption) => {
+      setSortOptions(value)
+      dispatch(setSortOption(value))
+    },
+    [dispatch]
+  )
 
   return (
     <main className={s.homePage}>
@@ -50,7 +60,7 @@ export const HomePage = () => {
         />
       </div>
       {isLoading ? (
-        <SkeletonTaskCard count={9} />
+        <SkeletonTasks count={9} />
       ) : (
         <ul className={s.tasksList}>
           {tasks.map(task => (

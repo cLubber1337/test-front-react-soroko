@@ -31,12 +31,7 @@ const router = createBrowserRouter([
   },
   {
     path: ROUTES.NOT_FOUND,
-    element: (
-      <>
-        <Header />
-        <NotFoundPage />
-      </>
-    ),
+    element: <NotFoundPage />,
   },
 ])
 

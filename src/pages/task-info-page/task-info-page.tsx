@@ -1,10 +1,10 @@
 import s from './task-info-page.module.scss'
-import { UiButton, UiCard, UiTextarea } from '@/components/ui-kit'
+import { UiButton, UiCard, UiPageSpinner, UiTextarea } from '@/components/ui-kit'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '@/services/redux/hooks.ts'
 import { Priority } from '@/services/api/types.ts'
 import { useEffect } from 'react'
-import { clearTask, selectTask, tasksThunks } from '@/services/redux/tasks'
+import { clearTask, selectTask, selectTasksLoading, tasksThunks } from '@/services/redux/tasks'
 import { formatDate } from '@/libs/utils.ts'
 import { PriorityData, priorityData } from '@/libs/data.ts'
 import { faLeftLong } from '@fortawesome/free-solid-svg-icons'
@@ -12,6 +12,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export const TaskInfoPage = () => {
   const dispatch = useAppDispatch()
+  const isLoading = useAppSelector(selectTasksLoading)
   const task = useAppSelector(selectTask)
   const { id, priority } = useParams()
   const navigate = useNavigate()
@@ -28,6 +29,8 @@ export const TaskInfoPage = () => {
       dispatch(clearTask())
     }
   }, [dispatch, id, priority])
+
+  if (isLoading) return <UiPageSpinner />
 
   return (
     <main className={s.taskInfoPage}>

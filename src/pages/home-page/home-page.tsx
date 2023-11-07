@@ -17,7 +17,7 @@ export const HomePage = () => {
   const dispatch = useAppDispatch()
   const tasks = useAppSelector(selectAllTasks)
   const errorMessage = useAppSelector(selectTasksErrors)
-  const loading = useAppSelector(selectTasksLoading)
+  const isLoading = useAppSelector(selectTasksLoading)
   const activePriority = useAppSelector(selectTasksPriority)
 
   useEffect(() => {
@@ -44,7 +44,6 @@ export const HomePage = () => {
             id={task._uuid}
             createdAt={formatDate(task._created)}
             priority={task._data_type}
-            isLoading={loading}
             title={task.title}
           />
         ))}

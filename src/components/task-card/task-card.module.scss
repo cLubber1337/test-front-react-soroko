@@ -4,6 +4,10 @@
   background-color: var(--color-task-card);
 }
 
+.cardLoading {
+  opacity: 0.4;
+}
+
 .header {
   display: flex;
   gap: 2rem;

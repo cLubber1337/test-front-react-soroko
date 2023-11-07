@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import { UiCard, UiCheckbox, UiDialog, UiPopover } from '@/components/ui-kit'
+import { UiCard, UiCheckbox, UiDialog, UiPopover, UiSpinner } from '@/components/ui-kit'
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { memo, useCallback, useState } from 'react'
@@ -18,36 +18,43 @@ interface TaskCardProps {
   id: string
   createdAt?: string
   priority: Priority
-  isLoading?: boolean
   title: string
 }
 
 export const TaskCard = memo(
-  ({ className, isDone, createdAt, id, priority, isLoading, title }: TaskCardProps) => {
+  ({ className, isDone, createdAt, id, priority, title }: TaskCardProps) => {
     const dispatch = useAppDispatch()
     const [openPopover, setOpenPopover] = useState(false)
     const [openModal, setOpenModal] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
     const colorPriority = priorityData.find(data => data.priority === priority)?.color || 'white'
 
     const updateCompletedStatus = useCallback(
       (completed: boolean) => {
-        dispatch(tasksThunks.updateCompletedStatus({ priority, id, completed }))
+        setIsLoading(true)
+        dispatch(tasksThunks.updateCompletedStatus({ priority, id, completed })).then(() => {
+          setIsLoading(false)
+        })
       },
       [dispatch, id, priority]
     )
     const deleteTask = useCallback(() => {
-      dispatch(tasksThunks.deleteTask({ priority, id }))
+      setIsLoading(true)
+      dispatch(tasksThunks.deleteTask({ priority, id })).then(() => {
+        setIsLoading(false)
+      })
     }, [dispatch, id, priority])
 
     return (
-      <UiCard className={clsx(s.card, className)}>
+      <UiCard className={clsx(s.card, className, isLoading && s.cardLoading)}>
+        {isLoading && <UiSpinner />}
         <div className={s.header}>
           <h3 className={s.createdAt}>Created at {createdAt}</h3>
           <UiPopover
             open={openPopover}
             onOpenChange={setOpenPopover}
             trigger={
-              <button className={s.actions}>
+              <button className={s.actions} disabled={isLoading}>
                 <FontAwesomeIcon icon={faEllipsis} />
               </button>
             }

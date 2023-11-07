@@ -1,12 +1,7 @@
 import { TaskCard } from '@/components/task-card/task-card.tsx'
 
 import { useAppDispatch, useAppSelector } from '@/services/redux/hooks.ts'
-import {
-  selectAllTasks,
-  selectTasksErrors,
-  selectTasksPriority,
-  tasksThunks,
-} from '@/services/redux/tasks'
+import { selectAllTasks, selectTasksErrors, setSortBy, tasksThunks } from '@/services/redux/tasks'
 import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { formatDate } from '@/libs/utils.ts'
@@ -21,7 +16,6 @@ export const HomePage = () => {
   const [isLoading, setIsLoading] = useState(false)
   const tasks = useAppSelector(selectAllTasks)
   const errorMessage = useAppSelector(selectTasksErrors)
-  const activePriority = useAppSelector(selectTasksPriority)
   const [sortOptions, setSortOptions] = useState<SelectOption>(sortTasksOptions[0])
 
   useEffect(() => {
@@ -39,9 +33,10 @@ export const HomePage = () => {
     }
   }, [errorMessage])
 
-  const tasksByPriority = tasks.filter(task =>
-    activePriority === 'all' ? task : task._data_type === activePriority
-  )
+  function handleSort(value: SelectOption) {
+    setSortOptions(value)
+    dispatch(setSortBy(value.title))
+  }
 
   return (
     <main className={s.homePage}>
@@ -51,14 +46,14 @@ export const HomePage = () => {
           className={s.select}
           options={sortTasksOptions}
           value={sortOptions}
-          onChange={setSortOptions}
+          onChange={handleSort}
         />
       </div>
       {isLoading ? (
         <SkeletonTaskCard count={9} />
       ) : (
         <ul className={s.tasksList}>
-          {tasksByPriority.map(task => (
+          {tasks.map(task => (
             <li className={s.tasksItem} key={task._uuid}>
               <TaskCard
                 isDone={task.completed}

@@ -1,12 +1,13 @@
 import Skeleton from 'react-loading-skeleton'
 import s from './task-card.module.scss'
 import 'react-loading-skeleton/dist/skeleton.css'
+import { memo } from 'react'
 
 type SkeletonTaskCardType = {
   count: number
 }
 
-export const SkeletonTaskCard = ({ count }: SkeletonTaskCardType) => {
+export const SkeletonTaskCard = memo(({ count }: SkeletonTaskCardType) => {
   const items = Array.from({ length: count }, (_, i) => i + 1)
 
   return (
@@ -18,4 +19,4 @@ export const SkeletonTaskCard = ({ count }: SkeletonTaskCardType) => {
       ))}
     </ul>
   )
-}
+})

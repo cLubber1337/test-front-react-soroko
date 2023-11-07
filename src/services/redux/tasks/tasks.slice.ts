@@ -1,16 +1,21 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { Priority, Task } from '@/services/api/types.ts'
 import { tasksThunks } from './tasks.thunks.ts'
+import { sortingProducts } from '@/libs/utils.ts'
 
 export type TasksState = {
   tasks: Task[]
+  sortedTasks: Task[]
   loading: boolean
   error: { title: string; message: string } | null
   priority: Priority | 'all'
   task: Task | null
+  sortBy: string
 }
 const initialState: TasksState = {
   tasks: [],
+  sortedTasks: [],
+  sortBy: 'created: old to new',
   loading: false,
   error: null,
   priority: 'all',
@@ -23,6 +28,14 @@ export const tasksSlice = createSlice({
   reducers: {
     setPriority: (state, action: PayloadAction<Priority | 'all'>) => {
       state.priority = action.payload
+      const newTasks = sortingProducts([...state.sortedTasks], state.sortBy)
+      state.tasks = newTasks.filter(task =>
+        action.payload === 'all' ? task : task._data_type === action.payload
+      )
+    },
+    setSortBy: (state, action: PayloadAction<string>) => {
+      state.sortBy = action.payload
+      state.tasks = sortingProducts(state.tasks, action.payload)
     },
     clearTask: state => {
       state.task = null
@@ -31,10 +44,12 @@ export const tasksSlice = createSlice({
   extraReducers: builder => {
     builder
       .addCase(tasksThunks.fetchAllTasks.fulfilled, (state, action) => {
-        state.tasks = action.payload
+        state.tasks = sortingProducts(action.payload, state.sortBy)
+        state.sortedTasks = action.payload
       })
       .addCase(tasksThunks.createTask.fulfilled, (state, action) => {
         state.tasks.unshift(action.payload[0])
+        state.sortedTasks.unshift(action.payload[0])
       })
       .addCase(tasksThunks.deleteTask.fulfilled, (state, action) => {
         state.tasks = state.tasks.filter(task => task._uuid !== action.payload._uuid)
@@ -92,6 +107,6 @@ export const tasksSlice = createSlice({
   },
 })
 
-export const { setPriority, clearTask } = tasksSlice.actions
+export const { setPriority, clearTask, setSortBy } = tasksSlice.actions
 
 export default tasksSlice.reducer

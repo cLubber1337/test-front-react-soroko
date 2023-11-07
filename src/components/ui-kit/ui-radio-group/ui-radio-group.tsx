@@ -1,10 +1,11 @@
 import s from './ui-radio-group.module.scss'
-import type { PriorityData } from '@/libs/data.ts'
+
 import clsx from 'clsx'
 import * as RadioGroup from '@radix-ui/react-radio-group'
 import { faCircle, faCircleDot } from '@fortawesome/free-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Priority } from '@/services/api/types.ts'
+import type { PriorityData } from '@/libs/types.ts'
 
 interface UiRadioGroupProps {
   disabled?: boolean

@@ -1,0 +1,30 @@
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  align-items: end;
+
+  padding-top: 176px;
+}
+
+.item {
+  display: flex;
+  flex-direction: row-reverse;
+  padding-right: 36px;
+  padding-left: 36px;
+}
+
+.activeItem {
+  padding-right: 30px;
+  border-right: #a855f7 6px solid;
+}
+
+.dropdown {
+  padding-left: 30px;
+  border-right: none;
+  border-left: #a855f7 6px solid;
+}
+
+.button {
+  flex-direction: row-reverse;
+}

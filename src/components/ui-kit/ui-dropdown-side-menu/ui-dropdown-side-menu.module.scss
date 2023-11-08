@@ -1,0 +1,50 @@
+@import '@/styles/vars';
+
+.dropdownSideMenu {
+  position: absolute;
+  z-index: var(--z-dropdown-menu);
+  top: var(--header-height);
+  right: 0;
+  bottom: 0;
+  transform: translateX(100%);
+
+  display: none;
+  flex-direction: column;
+  align-items: stretch;
+
+  width: 300px;
+  max-width: 100%;
+  height: 100vh;
+  padding-top: 2rem;
+
+  background-color: var(--color-sidebar-bg);
+
+  transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+
+  @media (max-width: $breakpoint-tablet) {
+    display: flex;
+  }
+}
+
+.isOpen {
+  transform: translateX(0);
+}
+
+.sidebarMenu {
+  align-items: flex-start;
+  padding-top: 1rem;
+}
+
+.addNewTask {
+  padding-left: 46px;
+}
+
+.sortTasksSelect {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  max-width: 200px;
+  padding-top: 2rem;
+  padding-left: 36px;
+}

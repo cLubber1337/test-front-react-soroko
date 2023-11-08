@@ -1,11 +1,12 @@
 @import 'vars';
 
 :root {
-  --header-height: 87px;
+  --header-height: 70px;
   --z-overlay: 11;
   --z-dialog: 12;
   --z-header: 10;
   --z-select: 9;
+  --z-dropdown-menu: 8;
   --width-sidebar: 250px;
 }
 
@@ -135,7 +136,7 @@ body {
   font-weight: var(--font-normal);
   color: var(--color-primary);
 
-  background: url('../../public/background.jpg') center top no-repeat;
+  background: url('../assets/img/background.jpg') center top no-repeat;
   background-size: cover;
 
   @media (max-width: $breakpoint-mobile) {

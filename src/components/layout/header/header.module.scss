@@ -1,3 +1,5 @@
+@import '@/styles/vars';
+
 .header {
   position: fixed;
   z-index: var(--z-header);
@@ -15,7 +17,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1.2rem 0;
+  padding: 0.875rem 0;
 }
 
 .logo {
@@ -25,12 +27,28 @@
 }
 
 .logoTitle {
-  font-size: var(--text-3xl);
+  font-size: var(--text-2xl);
   font-weight: var(--font-bold);
 }
 
 .logoIcon {
   position: relative;
   top: 1px;
-  font-size: var(--text-3xl);
+  font-size: var(--text-2xl);
+}
+
+.addNewTask {
+  display: block;
+
+  @media (max-width: $breakpoint-tablet) {
+    display: none;
+  }
+}
+
+.hamburger {
+  display: none;
+
+  @media (max-width: $breakpoint-tablet) {
+    display: block;
+  }
 }

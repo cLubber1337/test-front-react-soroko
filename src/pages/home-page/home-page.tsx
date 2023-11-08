@@ -1,29 +1,18 @@
 import { TaskCard } from '@/components/task-card/task-card.tsx'
-
 import { useAppDispatch, useAppSelector } from '@/services/redux/hooks.ts'
-import {
-  selectAllTasks,
-  selectSortOption,
-  selectTasksErrors,
-  setSortOption,
-  tasksThunks,
-} from '@/services/redux/tasks'
-import { useCallback, useEffect, useState } from 'react'
+import { selectAllTasks, selectTasksErrors, tasksThunks } from '@/services/redux/tasks'
+import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { formatDate } from '@/libs/utils.ts'
-import { UiSelect } from '@/components/ui-kit/ui-select/ui-select.tsx'
-import { sortTasksOptions } from '@/libs/data.ts'
-import { SelectOption } from '@/libs/types.ts'
-import s from './home-page.module.scss'
 import { SkeletonTasks } from '@/components/task-card/skeleton-tasks.tsx'
+import { SortTasksSelect } from '@/components/sort-tasks-select/sort-tasks-select.tsx'
+import s from './home-page.module.scss'
 
 export const HomePage = () => {
   const dispatch = useAppDispatch()
   const [isLoading, setIsLoading] = useState(false)
   const tasks = useAppSelector(selectAllTasks)
   const errorMessage = useAppSelector(selectTasksErrors)
-  const sortOption = useAppSelector(selectSortOption)
-  const [sortOptions, setSortOptions] = useState<SelectOption>(sortOption)
 
   useEffect(() => {
     setIsLoading(true)
@@ -40,24 +29,10 @@ export const HomePage = () => {
     }
   }, [errorMessage])
 
-  const handleSort = useCallback(
-    (value: SelectOption) => {
-      setSortOptions(value)
-      dispatch(setSortOption(value))
-    },
-    [dispatch]
-  )
-
   return (
     <main className={s.homePage}>
       <div className={s.sorting}>
-        <span className={s.selectLabel}>Sort by:</span>
-        <UiSelect
-          className={s.select}
-          options={sortTasksOptions}
-          value={sortOptions}
-          onChange={handleSort}
-        />
+        <SortTasksSelect />
       </div>
       {isLoading ? (
         <SkeletonTasks count={9} />

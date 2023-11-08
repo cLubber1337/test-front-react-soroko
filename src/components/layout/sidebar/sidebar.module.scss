@@ -10,22 +10,3 @@
     display: none;
   }
 }
-
-.list {
-  display: flex;
-  flex-direction: column;
-  gap: 1.2rem;
-  align-items: end;
-
-  padding-top: 176px;
-}
-
-.item {
-  padding-right: 36px;
-  padding-left: 36px;
-}
-
-.activeItem {
-  padding-right: 30px;
-  border-right: #a855f7 6px solid;
-}

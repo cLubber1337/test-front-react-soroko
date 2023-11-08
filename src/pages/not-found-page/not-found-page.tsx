@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { UiButton } from '@/components/ui-kit'
 import s from './not-found-page.module.scss'
-import imag404 from '../../../public/404.svg'
+import imag404 from '@/assets/img/404.svg'
 
 export const NotFoundPage = () => {
   return (

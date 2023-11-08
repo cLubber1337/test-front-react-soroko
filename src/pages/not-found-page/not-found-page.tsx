@@ -7,7 +7,7 @@ export const NotFoundPage = () => {
   return (
     <div>
       <div className={s.wrapper}>
-        <img src={imag404} alt="404" className={s.image} />
+        <img src={imag404} alt="404 Page Not Found" className={s.image} />
 
         <UiButton as={Link} to="/" className={s.button}>
           Go to main page

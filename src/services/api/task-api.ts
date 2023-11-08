@@ -14,10 +14,10 @@ export const taskApi = {
     return instance.delete(`${priority}/${id}`)
   },
   updateCompletedStatus(priority: Priority, id: string, completed: boolean) {
-    return instance.put(`${priority}/${id}`, { completed })
+    return instance.put<Task>(`${priority}/${id}`, { completed })
   },
   updateTitle(priority: Priority, id: string, title: string) {
-    return instance.put(`${priority}/${id}`, { title })
+    return instance.put<Task>(`${priority}/${id}`, { title })
   },
   getTask(priority: Priority, id: string) {
     return instance.get<Task>(`${priority}/${id}`)

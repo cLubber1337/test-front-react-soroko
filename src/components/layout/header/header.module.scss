@@ -47,6 +47,7 @@
 
 .hamburger {
   display: none;
+  padding-top: 5px;
 
   @media (max-width: $breakpoint-tablet) {
     display: block;

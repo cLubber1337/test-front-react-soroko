@@ -35,7 +35,7 @@ const HomePage = () => {
         <SortTasksSelect />
       </div>
       {isLoading ? (
-        <SkeletonTasks count={9} />
+        <SkeletonTasks count={12} />
       ) : (
         <ul className={s.tasksList}>
           {tasks.map(task => (

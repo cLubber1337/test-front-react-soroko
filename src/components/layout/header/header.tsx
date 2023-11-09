@@ -32,7 +32,7 @@ export const Header = () => {
           <div className={s.hamburger}>
             <UiHamburgerMenu isActive={isActiveMenu} setIsActive={setIsActiveMenu} />
           </div>
-          <UiDropdownSideMenu isOpen={isActiveMenu} />
+          <UiDropdownSideMenu isOpen={isActiveMenu} closeMenu={() => setIsActiveMenu(false)} />
           <div className={s.addNewTask}>
             <AddNewTask />
           </div>

@@ -5,16 +5,20 @@ import s from './ui-dropdown-side-menu.module.scss'
 import { SortTasksSelect } from '@/components/sort-tasks-select/sort-tasks-select.tsx'
 interface UiDropdownSideMenuProps {
   isOpen: boolean
+  closeMenu: () => void
 }
 
-export const UiDropdownSideMenu = ({ isOpen }: UiDropdownSideMenuProps) => {
+export const UiDropdownSideMenu = ({ isOpen, closeMenu }: UiDropdownSideMenuProps) => {
   return (
-    <nav className={clsx(s.dropdownSideMenu, isOpen && s.isOpen)}>
-      <div className={s.addNewTask}>
-        <AddNewTask />
-      </div>
-      <SidebarMenu className={s.sidebarMenu} isDropdown />
-      <SortTasksSelect className={s.sortTasksSelect} />
-    </nav>
+    <>
+      {isOpen && <div className={clsx(s.overlay)} onClick={closeMenu} />}
+      <nav className={clsx(s.dropdownSideMenu, isOpen && s.isOpen)}>
+        <div className={s.addNewTask}>
+          <AddNewTask />
+        </div>
+        <SidebarMenu className={s.sidebarMenu} isDropdown />
+        <SortTasksSelect className={s.sortTasksSelect} />
+      </nav>
+    </>
   )
 }

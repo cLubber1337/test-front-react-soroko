@@ -69,6 +69,8 @@
 }
 
 .option {
+  display: flex;
+  align-items: center;
   padding: 8px;
 
   &:hover {
@@ -82,4 +84,9 @@
 
 .highlighted {
   background-color: var(--color-info-hover);
+}
+
+.checkIcon {
+  margin-left: auto;
+  color: var(--color-icon);
 }

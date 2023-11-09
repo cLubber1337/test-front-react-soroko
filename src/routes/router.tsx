@@ -1,12 +1,15 @@
-import { HomePage } from '@/pages/home-page/home-page.tsx'
 import { createBrowserRouter, RouteObject, RouterProvider } from 'react-router-dom'
 import { Layout } from '@/components/layout/layout.tsx'
 import { Header } from '@/components/layout/header/header.tsx'
 import { NotFoundPage } from '@/pages/not-found-page/not-found-page.tsx'
 import { ROUTES } from '@/routes/routes.ts'
-import { TaskInfoPage } from '@/pages/task-info-page/task-info-page.tsx'
 import ErrorBoundary from '@/components/error-boundary/error-boundary.tsx'
 import { ErrorBoundaryMessage } from '@/components/error-boundary/error-boundary-message.tsx'
+import { lazy, Suspense } from 'react'
+import { UiPageSpinner } from '@/components/ui-kit'
+import TaskInfoPage from '@/pages/task-info-page/task-info-page.tsx'
+
+const HomePage = lazy(() => import('@/pages/home-page/home-page.tsx'))
 
 const routes: RouteObject[] = [
   {
@@ -16,9 +19,11 @@ const routes: RouteObject[] = [
 ].map(route => ({
   ...route,
   element: (
-    <Layout>
-      <ErrorBoundary fallback={<ErrorBoundaryMessage />}>{route.element}</ErrorBoundary>
-    </Layout>
+    <ErrorBoundary fallback={<ErrorBoundaryMessage />}>
+      <Suspense fallback={<UiPageSpinner />}>
+        <Layout>{route.element}</Layout>
+      </Suspense>
+    </ErrorBoundary>
   ),
 }))
 

@@ -2,6 +2,9 @@
   --color-primary: #353535;
   --color-white: #fff;
   --color-error: #ff6565;
+  --color-rose-300: #fda4af;
+  --color-rose-200: #fecdd3;
+  --color-rose-600: #e11d48;
   --color-caption: #adadad;
   --color-info: #3d46fa;
   --color-info-hover: rgb(146 169 247 / 43%);
@@ -25,6 +28,7 @@
   --gradient-outline: linear-gradient(90deg, #6366f1 0%, #a855f7 92.98%);
   --gradient-outline-hover: linear-gradient(90deg, #818cf8 0%, #c084fc 92.98%);
   --gradient-white: linear-gradient(#fff, #fff);
+  --gradient-white-hover: linear-gradient(90deg, #d4d7fb 0%, #f1e3fb 92.98%);
 
   // shadow
   --shadow-btn: 0px 4px 4px 0px rgb(0 0 0 / 25%);

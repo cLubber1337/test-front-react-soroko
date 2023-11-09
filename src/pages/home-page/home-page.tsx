@@ -8,7 +8,7 @@ import { SkeletonTasks } from '@/components/task-card/skeleton-tasks.tsx'
 import { SortTasksSelect } from '@/components/sort-tasks-select/sort-tasks-select.tsx'
 import s from './home-page.module.scss'
 
-export const HomePage = () => {
+const HomePage = () => {
   const dispatch = useAppDispatch()
   const [isLoading, setIsLoading] = useState(false)
   const tasks = useAppSelector(selectAllTasks)
@@ -54,3 +54,4 @@ export const HomePage = () => {
     </main>
   )
 }
+export default HomePage

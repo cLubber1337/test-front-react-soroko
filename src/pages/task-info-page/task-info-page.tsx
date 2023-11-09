@@ -11,7 +11,7 @@ import { faLeftLong } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { PriorityData } from '@/libs/types.ts'
 
-export const TaskInfoPage = () => {
+const TaskInfoPage = () => {
   const dispatch = useAppDispatch()
   const isLoading = useAppSelector(selectTasksLoading)
   const task = useAppSelector(selectTask)
@@ -80,3 +80,4 @@ export const TaskInfoPage = () => {
     </main>
   )
 }
+export default TaskInfoPage

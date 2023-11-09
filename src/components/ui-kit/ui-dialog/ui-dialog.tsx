@@ -18,9 +18,9 @@ export const UiDialog = ({ trigger, content, title, isOpen, setIsOpen }: UiDialo
       <Dialog.Trigger asChild>{trigger}</Dialog.Trigger>
 
       <Dialog.Portal>
-        <Dialog.Overlay className={s.overlay} />
+        <Dialog.Overlay className={'overlay'} />
 
-        <Dialog.Content className={s.content}>
+        <Dialog.Content className={'modal-content'}>
           <Dialog.Title className={s.title}>{title}</Dialog.Title>
           {content}
           <Dialog.Close className={s.closeBtn} aria-label="Close">

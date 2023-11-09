@@ -1,0 +1,57 @@
+.title {
+  margin: 0;
+  padding-bottom: 20px;
+  font-size: var(--text-lg);
+  font-weight: var(--font-bold);
+}
+
+.description {
+  margin-bottom: 20px;
+  opacity: 0.8;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 35px;
+  padding: 0 1rem;
+
+  font-weight: var(--font-medium);
+  line-height: 1;
+
+  border-radius: 4px;
+
+  transition: background-color 0.3s ease;
+}
+
+.confirmBtn {
+  color: var(--color-rose-600);
+  background-color: var(--color-rose-300);
+
+  &:hover {
+    background-color: var(--color-rose-200);
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 2px var(--color-rose-600);
+  }
+}
+
+.cancelBtn {
+  &:hover {
+    background-color: var(--color-icon-hover);
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 2px var(--color-primary);
+  }
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 25px;
+  justify-content: flex-end;
+}

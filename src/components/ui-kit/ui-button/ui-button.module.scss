@@ -53,8 +53,22 @@
 
   &:hover {
     background:
-      var(--gradient-white) padding-box,
+      var(--gradient-white-hover) padding-box,
       var(--gradient-outline-hover) border-box;
+    transition: 3s ease background;
+  }
+}
+
+.danger {
+  color: var(--color-rose-600);
+  background-color: var(--color-rose-300);
+
+  &:hover {
+    background: var(--color-rose-200);
+  }
+
+  &:disabled {
+    background: var(--color-rose-200);
   }
 }
 

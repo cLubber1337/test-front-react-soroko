@@ -4,12 +4,20 @@ import { AddNewTask } from '@/components/add-new-task/add-new-task.tsx'
 import { Link } from 'react-router-dom'
 import { ROUTES } from '@/routes/routes.ts'
 import { UiHamburgerMenu } from '@/components/ui-kit/ui-hamburger-menu/ui-hamburger-menu.tsx'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { UiDropdownSideMenu } from '@/components/ui-kit/ui-dropdown-side-menu/ui-dropdown-side-menu.tsx'
 import s from './header.module.scss'
 
 export const Header = () => {
   const [isActiveMenu, setIsActiveMenu] = useState(false)
+
+  useEffect(() => {
+    if (isActiveMenu) {
+      document.body.classList.add('no-scroll')
+    } else {
+      document.body.classList.remove('no-scroll')
+    }
+  }, [isActiveMenu])
 
   return (
     <header className={s.header}>

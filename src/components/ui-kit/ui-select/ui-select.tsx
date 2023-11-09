@@ -3,7 +3,7 @@ import { memo, useCallback, useEffect, useRef, useState } from 'react'
 import clsx from 'clsx'
 
 import { SelectOption } from '@/libs/types.ts'
-import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
+import { faAngleDown, faCheck } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import s from './ui-select.module.scss'
 
@@ -46,6 +46,7 @@ export const UiSelect = memo(({ value, onChange, options, className }: UiSelectP
           break
         case 'ArrowUp':
         case 'ArrowDown': {
+          e.preventDefault()
           if (!isOpen) {
             setIsOpen(true)
             break
@@ -94,7 +95,10 @@ export const UiSelect = memo(({ value, onChange, options, className }: UiSelectP
             }}
             onMouseEnter={() => setHighlightedIndex(index)}
           >
-            {option.title}
+            {option.title}{' '}
+            {index + 1 === value.value && (
+              <FontAwesomeIcon icon={faCheck} className={s.checkIcon} />
+            )}
           </li>
         ))}
       </ul>

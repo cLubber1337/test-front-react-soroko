@@ -1,44 +1,87 @@
-import s from './task-card-menu.module.scss'
-import { faCircleInfo, faPenToSquare, faTrashCan } from '@fortawesome/free-solid-svg-icons'
+import { TaskCardMenuContent } from '@/components/task-card-menu/task-card-menu-content/task-card-menu-content.tsx'
+import s from '@/components/task-card/task-card.module.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { UiButton } from '@/components/ui-kit'
-import { Link } from 'react-router-dom'
-import { ROUTES } from '@/routes/routes.ts'
-import { memo } from 'react'
+import { faEllipsis } from '@fortawesome/free-solid-svg-icons'
+import { UiDialog, UiPopover } from '@/components/ui-kit'
+import { UiAlertDialog } from '@/components/ui-kit/ui-alert-dialog/ui-alert-dialog.tsx'
+import { EditTaskCard } from '@/components/edit-task-card/edit-task-card.tsx'
+import { useCallback, useState } from 'react'
+import { tasksThunks } from '@/services/redux/tasks'
+import { useAppDispatch } from '@/services/redux/hooks.ts'
 import { Priority } from '@/services/api/types.ts'
 
 type TaskCardMenuProps = {
-  id: string
-  deleteTask: () => void
-  setOpenPopover: (isOpen: boolean) => void
+  isLoading: boolean
+  setIsLoading: (isLoading: boolean) => void
   priority: Priority
+  id: string
+  title: string
 }
+export const TaskCardMenu = ({
+  isLoading,
+  setIsLoading,
+  priority,
+  id,
+  title,
+}: TaskCardMenuProps) => {
+  const dispatch = useAppDispatch()
+  const [isOpenDeleteAlert, setIsOpenDeleteAlert] = useState(false)
+  const [openPopover, setOpenPopover] = useState(false)
+  const [isOpenEditModal, setIsOpenEditModal] = useState(false)
 
-export const TaskCardMenu = memo(
-  ({ id, deleteTask, setOpenPopover, priority }: TaskCardMenuProps) => {
-    return (
-      <div className={s.taskCardMenu}>
-        <h3 className={s.title}>Task menu</h3>
-        <div className={s.content}>
-          <UiButton
-            as={Link}
-            to={`${ROUTES.TASK_INFO}/${priority}/${id}`}
-            variant={'unstyled'}
-            className={s.item}
-          >
-            <FontAwesomeIcon icon={faCircleInfo} />
-            Information
-          </UiButton>
-          <UiButton variant={'unstyled'} className={s.item} onClick={() => setOpenPopover(true)}>
-            <FontAwesomeIcon icon={faPenToSquare} />
-            Edit
-          </UiButton>
-          <UiButton variant={'unstyled'} onClick={deleteTask} className={s.item}>
-            <FontAwesomeIcon icon={faTrashCan} />
-            Delete
-          </UiButton>
-        </div>
-      </div>
-    )
-  }
-)
+  const deleteTask = useCallback(() => {
+    setIsLoading(true)
+    dispatch(tasksThunks.deleteTask({ priority, id }))
+      .unwrap()
+      .then(() => {
+        setIsLoading(false)
+        setIsOpenEditModal(false)
+      })
+  }, [dispatch, id, priority, setIsLoading])
+  return (
+    <>
+      <UiPopover
+        open={openPopover}
+        onOpenChange={setOpenPopover}
+        trigger={
+          <button className={s.actions} disabled={isLoading}>
+            <FontAwesomeIcon icon={faEllipsis} />
+          </button>
+        }
+        content={
+          <TaskCardMenuContent
+            openEditDialog={setIsOpenEditModal}
+            id={id}
+            priority={priority}
+            openAlertDelete={setIsOpenDeleteAlert}
+          />
+        }
+      />
+
+      {/*---------------------------Delete task alert --------------------------- */}
+      <UiAlertDialog
+        action={deleteTask}
+        isOpen={isOpenDeleteAlert}
+        setIsOpen={setIsOpenDeleteAlert}
+        description={
+          'This action cannot be undone. This will permanently delete your task and remove it from our servers.'
+        }
+      />
+
+      {/*---------------------------Edit task dialog --------------------------- */}
+      <UiDialog
+        content={
+          <EditTaskCard
+            priority={priority}
+            id={id}
+            title={title}
+            setOpenModal={setIsOpenEditModal}
+          />
+        }
+        isOpen={isOpenEditModal}
+        setIsOpen={setIsOpenEditModal}
+        title={'Edit task'}
+      />
+    </>
+  )
+}

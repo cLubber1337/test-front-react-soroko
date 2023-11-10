@@ -27,6 +27,10 @@ export const EditTaskCard = memo(({ title, setOpenModal, priority, id }: EditTas
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
+    if (value.trim() === title) {
+      setOpenModal(false)
+      return
+    }
     dispatch(tasksThunks.updateTitle({ priority, id, title: value.trim() }))
       .unwrap()
       .then(() => {
